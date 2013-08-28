@@ -10,11 +10,16 @@
 
 #include "bubblesort.h"
 
-void bubblesort(int unsortedList[], int numberOfElements)
+void bubblesort(int unsortedList[], const size_t numberOfElements)
 {
   bool itemsWereSwapped;
   int index;
   int swapValue;
+
+  if (numberOfElements < 2)
+  {
+    return;
+  }
 
   do
   {

@@ -9,6 +9,8 @@
 #ifndef PRINTARRAYS_H_
 #define PRINTARRAYS_H_
 
-void printarray(const int[], const unsigned int);
+#include <stdlib.h>
+
+void printarray(const int[], const size_t);
 
 #endif /* PRINTARRAYS_H_ */

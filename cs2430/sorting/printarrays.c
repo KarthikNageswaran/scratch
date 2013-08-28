@@ -10,7 +10,7 @@
 
 #include "printarrays.h"
 
-void printarray(const int array[], const unsigned int numElements)
+void printarray(const int array[], const size_t numElements)
 {
   int index;
 

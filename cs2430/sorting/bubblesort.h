@@ -9,6 +9,8 @@
 #ifndef BUBBLESORT_H_
 #define BUBBLESORT_H_
 
-void bubblesort(int[], int);
+#include <stdlib.h>
+
+void bubblesort(int[], const size_t);
 
 #endif /* BUBBLESORT_H_ */
