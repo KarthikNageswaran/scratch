@@ -10,7 +10,12 @@
 
 #include "bubblesort.h"
 
-void bubblesort(int unsortedList[], const size_t numberOfElements)
+/**
+ * Bubble Sort algorithm based on Wikipedia entry on Bubble Sort.
+ *   URL: http://en.wikipedia.org/wiki/Bubble_sort
+ *   Accessed on: 27 August 2013
+ */
+void bubblesort(int * unsortedList, const size_t numberOfElements)
 {
   bool itemsWereSwapped;
   int index;

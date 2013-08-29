@@ -11,6 +11,6 @@
 
 #include <stdlib.h>
 
-void bubblesort(int[], const size_t);
+void bubblesort(int *, const size_t);
 
 #endif /* BUBBLESORT_H_ */

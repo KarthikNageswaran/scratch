@@ -11,6 +11,6 @@
 
 #include <stdlib.h>
 
-int * generateRandomArray(size_t);
+int * generateRandomArray(size_t, int, int);
 
 #endif /* RANDOMGENERATOR_H_ */
