@@ -61,7 +61,7 @@ double sortUsingQuicksort(int * unsortedList, const size_t size)
   
   copyOfList = makeDeepCopyOfArray(unsortedList, size);
   
-  printf("Unsorted list: ");
+  printf("Unsorted list (Quicksort): ");
   printarray(copyOfList, size);
 
   startOfTask = clock();
@@ -70,7 +70,7 @@ double sortUsingQuicksort(int * unsortedList, const size_t size)
   
   endOfTask = clock();
 
-  printf("Sorted list: ");
+  printf("Sorted list (Quicksort): ");
   printarray(copyOfList, size);
   
   return (double)((endOfTask - startOfTask) / CLOCKS_PER_SEC);
