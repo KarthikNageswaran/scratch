@@ -6,13 +6,7 @@
  *       Class: CSIS-2430
  */
 
-#include <stdlib.h>
-#include <time.h>
-#include <stdio.h>
-
 #include "quicksort.h"
-#include "lists.h"
-#include "printarrays.h"
 
 /**
  * This algorithm was literally ripped from rosettacode.com. I could not get any of my adaptations to work.
