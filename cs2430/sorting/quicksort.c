@@ -12,62 +12,49 @@
 #include "quicksort.h"
 #include "lists.h"
 
-int partition(int * subList, int left, int right, int pivotIndex)
+void quicksort(int * unsortedList, size_t size)
 {
   int pivotValue;
   int swapValue;
-  int storeIndex;
-  int index;
-  
-  pivotValue = subList[pivotIndex];
-  swapValue = subList[right];
-  
-  subList[right] = subList[pivotIndex];
-  subList[pivotIndex] = swapValue;
-  
-  storeIndex = left;
-  
-  for (index = left; index < right; index++)
+  int leftIndex;
+  int righIndext;
+
+  leftIndex = 0;
+  rightIndex = (size - 1);
+
+  srand(time(NULL));
+
+  pivotValue = unsortedList[(rand() % (size - 1))];
+
+  if (size <= 1)
   {
-    if (subList[index] < pivotValue)
-	{
-	  swapValue = subList[index];
-	  
-	  subList[index] = subList[storeIndex];
-	  subList[storeIndex] = swapValue;
-	  
-	  storeIndex++;
-	}
+    return;
   }
-  
-  swapValue = subList[storeIndex];
-  
-  subList[storeIndex] = subList[right];
-  subList[right] = swapValue;
-  
-  return storeIndex;
+
+  while (leftIndex <= rightIndex)
+  {
+    while (unsortedList[leftIndex] < pivotValue)
+    {
+      leftIndex++;
+    }
+
+    while (unsortedList[rightIndex] > pivotValue)
+    {
+      rightIndex--;
+    }
+
+    if (leftIndex <= rightIndex)
+    {
+      swapValue = unsortedList[leftIndex];
+      unsortedList[leftIndex] = unsortedList[rightIndex];
+      unsortedList[rightIndex] = swapValue;
+
+      leftIndex++;
+      rightIndex--;
+    }
+  }
+
+  quicksort(subList(unsortedList, 0, rightIndex), (rightIndex));
+  quicksort(subList(unsortedList, leftIndex, (size - 1)), (size - leftIndex));
 }
 
-/**
- * Quicksort algorithm based on Wikipedia entry on Bubble Sort.
- *   URL: http://en.wikipedia.org/wiki/Quicksort
- *   Accessed on: 28 August 2013
- */
-void quicksort(int * unsortedList, const size_t size, const int left, const int right)
-{
-  int pivotIndex;
-  int pivotNewIndex;
-  
-  if (size > 1 && left < right)
-  {
-    srand(time(NULL));
-    
-    pivotIndex = (rand() % (size - 1));
-    
-	pivotNewIndex = partition(unsortedList, left, right, pivotIndex);
-	
-    quicksort(unsortedList, size, left, pivotNewIndex - 1);
- 
-    quicksort(unsortedList, size, pivotNewIndex + 1, right);
-  }
-}

@@ -17,4 +17,6 @@ int * concatenateLists(int *, int *);
 
 int * list(int);
 
+int * subList(const int *, int, int);
+
 #endif /* LISTS_H_ */

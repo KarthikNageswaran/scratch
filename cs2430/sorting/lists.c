@@ -66,3 +66,22 @@ int * list(int singleItem)
   
   return newList;
 }
+
+/**
+ * Creates a sublist from an existing list.
+ */
+int * subList(const int * otherList, int leftIndex, int rightIndex)
+{
+  static int * newList;
+  int otherListIndex;
+  int index;
+
+  newList = calloc((rightIndex - leftIndex), sizeof(int));
+
+  for (index = 0, otherListIndex = leftIndex; otherListIndex <= rightIndex; otherListIndex++, index++)
+  {
+    newList[index] = otherList[otherListIndex];
+  }
+
+  return newList;
+}
