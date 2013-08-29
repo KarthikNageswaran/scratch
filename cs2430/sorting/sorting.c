@@ -67,7 +67,7 @@ double sortUsingQuicksort(int * unsortedList, const size_t size)
 
   startOfTask = clock();
   
-  quicksort(copyOfList, size, 0, size);
+  quicksort(copyOfList, size);
   
   endOfTask = clock();
 

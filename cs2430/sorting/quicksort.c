@@ -17,7 +17,7 @@ void quicksort(int * unsortedList, size_t size)
   int pivotValue;
   int swapValue;
   int leftIndex;
-  int righIndext;
+  int rightIndex;
 
   leftIndex = 0;
   rightIndex = (size - 1);

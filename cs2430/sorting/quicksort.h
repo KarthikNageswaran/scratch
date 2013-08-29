@@ -11,6 +11,6 @@
 
 #include <stdlib.h>
 
-void quicksort(int *, const size_t, const int, const int);
+void quicksort(int *, const size_t);
 
 #endif /* QUICKSORT_H_ */
