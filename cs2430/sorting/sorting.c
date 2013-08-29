@@ -16,7 +16,7 @@
 #include "printarrays.h"
 #include "lists.h"
 
-#define MAX_NUM_ELEMENTS 100
+#define MAX_NUM_ELEMENTS 10
 
 /**
  * Note: using clock() and CLOCKS_PER_SEC came from:
@@ -42,8 +42,6 @@ double sortUsingBubbleSort(int * unsortedList, const size_t size)
 
   printf("Sorted list (Bubble Sort): ");
   printarray(copyOfList, size);
-  
-  free(copyOfList);
   
   return (double)((endOfTask - startOfTask) / CLOCKS_PER_SEC);
 }
@@ -74,8 +72,6 @@ double sortUsingQuicksort(int * unsortedList, const size_t size)
   printf("Sorted list: ");
   printarray(copyOfList, size);
   
-  free(copyOfList);
-  
   return (double)((endOfTask - startOfTask) / CLOCKS_PER_SEC);
 }
 
@@ -83,8 +79,8 @@ int main()
 {
   int * intList = generateRandomArray(MAX_NUM_ELEMENTS, 1, 1000);
 
-  printf("Time for bubble sort: %f\n", sortUsingBubbleSort(intList, MAX_NUM_ELEMENTS));
-  /*printf("Time for quicksort: %f\n", sortUsingQuicksort(intList, MAX_NUM_ELEMENTS));*/
+  /*printf("Time for bubble sort: %f\n", sortUsingBubbleSort(intList, MAX_NUM_ELEMENTS));*/
+  printf("Time for quicksort: %f\n", sortUsingQuicksort(intList, MAX_NUM_ELEMENTS));
 
   return 0;
 }

@@ -8,6 +8,7 @@
 
 #include <stdlib.h>
 #include <time.h>
+#include <stdio.h>
 
 #include "randomgenerator.h"
 
@@ -64,7 +65,7 @@ int * generateRandomArray(size_t arraySize, const int minValue, const int maxVal
   int * shuffledValues = shufflePossibleValues(generateListOfPossibleValues(minValue, maxValue));
   int index;
 
-  array = (int *) calloc(arraySize, sizeof(int));
+  array = calloc(arraySize, sizeof(int));
 
   for (index = 0; index < arraySize; index++)
   {

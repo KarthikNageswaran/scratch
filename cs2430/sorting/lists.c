@@ -6,7 +6,10 @@
  *       Class: CSIS-2430
  */
 
+#include <stdio.h>
+
 #include "lists.h"
+#include "printarrays.h"
 
 /**
  * Creates a deep copy of another array.
@@ -15,8 +18,8 @@ int * makeDeepCopyOfArray(const int * original, const size_t size)
 {
   int * list;
   int index;
-  
-  list = malloc(sizeof(original));
+
+  list = calloc(size, sizeof(int));
   
   for (index = 0; index < size; index++)
   {
@@ -29,26 +32,25 @@ int * makeDeepCopyOfArray(const int * original, const size_t size)
 /**
  * Concatenates two lists and returns the new list.
  */
-int * concatenateLists(int * first, int * second)
+int * concatenateLists(const int * first, const size_t firstSize, const int * second, const size_t secondSize)
 {
   static int * newList;
-  size_t size;
   int index;
   int newListIndex;
   
-  size = ((sizeof(first) + sizeof(second)) / sizeof(int));
+  newList = calloc((firstSize + secondSize), sizeof(int));
   
-  newList = calloc(size, sizeof(int));
-  
-  for (index = 0, newListIndex = 0; index < (sizeof(first) / sizeof(int)); index++, newListIndex++)
+  for (index = 0, newListIndex = 0; index < firstSize; index++, newListIndex++)
   {
     newList[newListIndex] = first[index];
   }
   
-  for (index = 0, newListIndex = 0; index < (sizeof(second) / sizeof(int)); index++, newListIndex++)
+  for (index = 0, newListIndex = 0; index < secondSize; index++, newListIndex++)
   {
     newList[newListIndex] = second[index];
   }
+
+  printarray(newList, (firstSize + secondSize));
   
   return newList;
 }
@@ -70,18 +72,40 @@ int * list(int singleItem)
 /**
  * Creates a sublist from an existing list.
  */
-int * subList(const int * otherList, int leftIndex, int rightIndex)
+int * subList(const int * otherList, const size_t otherListSize, int leftIndex, const size_t size)
 {
   static int * newList;
+  int * copyOfOtherList;
   int otherListIndex;
   int index;
+  int valueToBeAdded;
 
-  newList = calloc((rightIndex - leftIndex), sizeof(int));
+  copyOfOtherList = makeDeepCopyOfArray(otherList, otherListSize);
 
-  for (index = 0, otherListIndex = leftIndex; otherListIndex <= rightIndex; otherListIndex++, index++)
+  newList = calloc(size, sizeof(int));
+
+  for (index = 0, otherListIndex = leftIndex; (index < size && otherListIndex < otherListSize); otherListIndex++, index++)
   {
-    newList[index] = otherList[otherListIndex];
+    valueToBeAdded = copyOfOtherList[otherListIndex];
+
+    newList[index] = valueToBeAdded;
   }
 
   return newList;
 }
+
+int * resize(const int * list, const size_t size)
+{
+  static int * newList;
+  int index;
+
+  newList = calloc(size, sizeof(int));
+
+  for (index = 0; index < size; index++)
+  {
+    newList[index] = list[index];
+  }
+
+  return newList;
+}
+
