@@ -15,82 +15,33 @@
 #include "printarrays.h"
 
 /**
- * This algorithm was adapted from rosettacode.com
+ * This algorithm was literally ripped from rosettacode.com. I could not get any of my adaptations to work.
  *   URL: http://rosettacode.org/wiki/Sorting_algorithms/Quicksort#C
  *   Accessed on: 29 August 2013
  */
-void quicksort(int * unsortedList, size_t size)
+void quicksort(int * a, size_t n)
 {
-  int * less;
-  int * greater;
-  int * equal;
-  int * newList;
-  int lessIndex = 0;
-  int greaterIndex = 0;
-  int equalIndex = 0;
-  int pivotValue;
-  int unsortedListIndex;
+  int p = a[n / 2];
+  int *l = a;
+  int *r = a + n - 1;
+  int t;
 
-  printf("\nstarted quicksort: ");
-  printarray(unsortedList, size);
-
-  if (size < 2)
-  {
+  if (n < 2)
     return;
+  while (l <= r) {
+    if (*l < p) {
+      l++;
+      continue;
+    }
+    if (*r > p) {
+      r--;
+      continue; // we need to check the condition (l <= r) every time we change the value of l or r
+    }
+    t = *l;
+    *l++ = *r;
+    *r-- = t;
   }
-
-  less = calloc(size, sizeof(int));
-  greater = calloc(size, sizeof(int));
-  equal = calloc(size, sizeof(int));
-  newList = calloc(size, sizeof(int));
-
-  srand(time(NULL));
-
-  pivotValue = unsortedList[(rand() % (size - 1))];
-
-  printf("pivotValue=%i\n", pivotValue);
-
-  for (unsortedListIndex = 0; unsortedListIndex < size; unsortedListIndex++)
-  {
-    if (unsortedList[unsortedListIndex] < pivotValue)
-    {
-      less[lessIndex] = unsortedList[unsortedListIndex];
-
-      lessIndex++;
-    }
-    else if (unsortedList[unsortedListIndex] == pivotValue)
-    {
-      equal[equalIndex] = unsortedList[unsortedListIndex];
-
-      equalIndex++;
-    }
-    else if (unsortedList[unsortedListIndex] > pivotValue)
-    {
-      greater[greaterIndex] = unsortedList[unsortedListIndex];
-
-      greaterIndex++;
-    }
-  }
-
-  less = resize(less, lessIndex);
-  greater = resize(greater, greaterIndex);
-  equal = resize(equal, equalIndex);
-
-  printf("less: ");
-  printarray(less, lessIndex);
-  printf("equal: ");
-  printarray(equal, equalIndex);
-  printf("greater: ");
-  printarray(greater, greaterIndex);
-
-  quicksort(less, lessIndex);
-  quicksort(greater, greaterIndex);
-
-  newList = concatenateLists(less, lessIndex, concatenateLists(equal, equalIndex, greater, greaterIndex), (equalIndex + greaterIndex));
-
-  printf("New list: ");
-  printarray(newList, size);
-
-  unsortedList = makeDeepCopyOfArray(newList, size);
+  quicksort(a, r - a + 1);
+  quicksort(l, a + n - l);
 }
 
