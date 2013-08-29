@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <locale.h>
 
 #include "bubblesort.h"
 #include "quicksort.h"
@@ -79,8 +80,11 @@ int main()
 {
   int * intList = generateRandomArray(MAX_NUM_ELEMENTS, 1, 1000);
 
-  printf("Time for bubble sort: %f\n", sortUsingBubbleSort(intList, MAX_NUM_ELEMENTS));
-  printf("Time for quicksort: %f\n", sortUsingQuicksort(intList, MAX_NUM_ELEMENTS));
+  setlocale(LC_NUMERIC, "");
+
+  printf("Clocks per second: %'li.\n\n", CLOCKS_PER_SEC);
+  printf("Time for bubble sort: %'.4lf sec\n\n", sortUsingBubbleSort(intList, MAX_NUM_ELEMENTS));
+  printf("Time for quicksort: %'.4lf sec\n\n", sortUsingQuicksort(intList, MAX_NUM_ELEMENTS));
 
   return 0;
 }
