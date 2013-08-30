@@ -17,9 +17,9 @@
 #include "randomgenerator.h"
 #include "sortingfunctioncalls.h"
 
-#define MAX_NUM_ELEMENTS 10
+#define MAX_NUM_ELEMENTS 100
 
-int main()
+int main(int argc, char * * argv)
 {
   int * intList = generateRandomArray(MAX_NUM_ELEMENTS, 1, 1000);
 
