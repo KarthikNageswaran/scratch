@@ -13,29 +13,32 @@
  *   URL: http://rosettacode.org/wiki/Sorting_algorithms/Quicksort#C
  *   Accessed on: 29 August 2013
  */
-void quicksort(int * a, size_t n)
+void quicksort(int * unsortedList, size_t size)
 {
-  int p = a[n / 2];
-  int *l = a;
-  int *r = a + n - 1;
-  int t;
+  int pivotValue = unsortedList[size / 2];
+  int * left = unsortedList;
+  int * right = unsortedList + size - 1;
+  int tempValue;
 
-  if (n < 2)
+  if (size < 2)
     return;
-  while (l <= r) {
-    if (*l < p) {
-      l++;
+  while (left <= right) {
+    if ((* left) < pivotValue ) {
+      left++;
+
       continue;
     }
-    if (*r > p) {
-      r--;
+
+    if ((* right) > pivotValue)  {
+      right--;
       continue; // we need to check the condition (l <= r) every time we change the value of l or r
     }
-    t = *l;
-    *l++ = *r;
-    *r-- = t;
+
+    tempValue = (* left);
+    (* left++) = (* right);
+    (* right--) = tempValue;
   }
-  quicksort(a, r - a + 1);
-  quicksort(l, a + n - l);
+  quicksort(unsortedList, (right - unsortedList + 1));
+  quicksort(left, (unsortedList + size - left));
 }
 
