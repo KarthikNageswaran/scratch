@@ -20,8 +20,8 @@
 void printUsage(const char * programName)
 {
   printf("usage %s <number-of-elements>\n", programName);
-  printf(" number-of-elements: an integer greater than zero,\n");
-  printf("   of elements to generate and sort.\n\n");
+  printf("  * number-of-elements: an integer greater than zero,\n");
+  printf("    of elements to generate and sort.\n\n");
 }
 
 int main(int argc, char * argv[])
