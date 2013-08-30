@@ -13,11 +13,40 @@
 
 #include "bubblesort.h"
 #include "quicksort.h"
+#include "arbslowsort.h"
 #include "randomgenerator.h"
 #include "printarrays.h"
 #include "lists.h"
 
-#define MAX_NUM_ELEMENTS 100
+#define MAX_NUM_ELEMENTS 10
+
+/**
+ * Note: using clock() and CLOCKS_PER_SEC came from:
+ *   URL: http://stackoverflow.com/a/5249150
+ *   Accessed on: 28 August 2013
+ */
+double sortUsingArbitrarilySlowSort(int * unsortedList, const size_t size)
+{
+  int * copyOfList;
+  clock_t startOfTask;
+  clock_t endOfTask;
+  
+  copyOfList = makeDeepCopyOfArray(unsortedList, size);
+  
+  printf("Unsorted list (ArbSlow Sort): ");
+  printarray(copyOfList, size);
+
+  startOfTask = clock();
+  
+  arbslowsort(copyOfList, size);
+  
+  endOfTask = clock();
+
+  printf("Sorted list (ArbSlow Sort): ");
+  printarray(copyOfList, size);
+  
+  return (double)((endOfTask - startOfTask) / CLOCKS_PER_SEC);
+}
 
 /**
  * Note: using clock() and CLOCKS_PER_SEC came from:
@@ -88,6 +117,7 @@ int main()
   printf("Clocks per second: %'li.\n\n", CLOCKS_PER_SEC);
   printf("Time for bubble sort: %'.4lf sec\n\n", sortUsingBubbleSort(intList, MAX_NUM_ELEMENTS));
   printf("Time for quicksort: %'.4lf sec\n\n", sortUsingQuicksort(intList, MAX_NUM_ELEMENTS));
+  printf("Time for arbslowsort: %'.4lf sec\n\n", sortUsingArbitrarilySlowSort(intList, MAX_NUM_ELEMENTS));
 
   return 0;
 }

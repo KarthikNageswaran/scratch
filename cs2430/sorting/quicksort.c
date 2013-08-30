@@ -17,11 +17,14 @@ void quicksort(int * unsortedList, size_t size)
 {
   int pivotValue = unsortedList[size / 2];
   int * left = unsortedList;
-  int * right = unsortedList + size - 1;
+  int * right = (unsortedList + size - 1);
   int tempValue;
 
   if (size < 2)
+  {
     return;
+  }
+
   while (left <= right) {
     if ((* left) < pivotValue ) {
       left++;
@@ -38,6 +41,7 @@ void quicksort(int * unsortedList, size_t size)
     (* left++) = (* right);
     (* right--) = tempValue;
   }
+  
   quicksort(unsortedList, (right - unsortedList + 1));
   quicksort(left, (unsortedList + size - left));
 }
