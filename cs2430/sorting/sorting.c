@@ -17,11 +17,35 @@
 #include "randomgenerator.h"
 #include "sortingfunctioncalls.h"
 
-#define MAX_NUM_ELEMENTS 100
-
-int main(int argc, char * * argv)
+void printUsage(const char * programName)
 {
-  int * intList = generateRandomArray(MAX_NUM_ELEMENTS, 1, 1000);
+  printf("usage %s <number-of-elements>\n", programName);
+  printf(" number-of-elements: an integer greater than zero,\n");
+  printf("   of elements to generate and sort.\n\n");
+}
+
+int main(int argc, char * argv[])
+{
+  int * intList;
+  int numElements;
+
+  if (argc != 2)
+  {
+    printUsage(argv[0]);
+
+    return 1;
+  }
+
+  numElements = atoi(argv[1]);  
+
+  if (numElements < 1)
+  {
+    printUsage(argv[0]);
+
+    return 2;
+  }
+
+  intList = generateRandomArray(numElements, 1, 1000);
 
   setlocale(LC_NUMERIC, "");
 
@@ -29,9 +53,9 @@ int main(int argc, char * * argv)
    * URL: http://stackoverflow.com/questions/11694901/how-can-i-format-currency-with-commas-in-c; Accessed on 29 August
    * 2013 */
   printf("Clocks per second: %'li.\n\n", CLOCKS_PER_SEC);
-  printf("Time for bubble sort: %'.4lf sec\n\n", sortUsingBubbleSort(intList, MAX_NUM_ELEMENTS));
-  printf("Time for quicksort: %'.4lf sec\n\n", sortUsingQuicksort(intList, MAX_NUM_ELEMENTS));
-  printf("Time for arbslowsort: %'.4lf sec\n\n", sortUsingArbitrarilySlowSort(intList, MAX_NUM_ELEMENTS));
+  printf("Time for bubble sort: %'.4lf sec\n\n", sortUsingBubbleSort(intList, numElements));
+  printf("Time for quicksort: %'.4lf sec\n\n", sortUsingQuicksort(intList, numElements));
+  printf("Time for arbslowsort: %'.4lf sec\n\n", sortUsingArbitrarilySlowSort(intList, numElements));
 
   return 0;
 }
