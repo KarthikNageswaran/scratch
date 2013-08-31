@@ -13,7 +13,7 @@
  *   URL: http://rosettacode.org/wiki/Sorting_algorithms/Quicksort#C
  *   Accessed on: 29 August 2013
  */
-void quicksort(int * unsortedList, size_t size)
+void quicksort(int * unsortedList, const size_t size)
 {
   int pivotValue = unsortedList[size / 2];
   int * left = unsortedList;

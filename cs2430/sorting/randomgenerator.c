@@ -12,10 +12,8 @@
 
 #include "randomgenerator.h"
 
-#define MAX_POSSIBLE_VALUES 1000
-
 /**
- * Generates a list of 1,000 possible values (1..1000).
+ * Generates a list of maxValue possible values (minValue..maxValue).
  */
 int * generateListOfPossibleValues(const int minValue, const int maxValue)
 {
@@ -35,7 +33,7 @@ int * generateListOfPossibleValues(const int minValue, const int maxValue)
 /**
  * Shuffles a list of possible values.
  */
-int * shufflePossibleValues(int * possibleValues)
+int * shufflePossibleValues(int * possibleValues, size_t numValues)
 {
   int index;
   int nextRand;
@@ -43,9 +41,9 @@ int * shufflePossibleValues(int * possibleValues)
 
   srand(time(NULL));
 
-  for (index = 0; index < MAX_POSSIBLE_VALUES; index++)
+  for (index = 0; index < numValues; index++)
   {
-    nextRand = rand() % 1000;
+    nextRand = rand() % numValues;
 
     swapValue = possibleValues[index];
 
@@ -62,7 +60,7 @@ int * shufflePossibleValues(int * possibleValues)
 int * generateRandomArray(size_t arraySize, const int minValue, const int maxValue)
 {
   static int * array;
-  int * shuffledValues = shufflePossibleValues(generateListOfPossibleValues(minValue, maxValue));
+  int * shuffledValues = shufflePossibleValues(generateListOfPossibleValues(minValue, maxValue), arraySize);
   int index;
 
   array = calloc(arraySize, sizeof(int));
@@ -74,4 +72,3 @@ int * generateRandomArray(size_t arraySize, const int minValue, const int maxVal
 
   return array;
 }
-
