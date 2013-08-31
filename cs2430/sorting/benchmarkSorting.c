@@ -17,6 +17,8 @@
 
 #define NUM_CYCLES 100
 #define NUM_ELEMENTS 10000
+#define MIN_VAL 1
+#define MAX_VAL 100000
 
 double benchmarkBubbleSort()
 {
@@ -36,7 +38,7 @@ double benchmarkBubbleSort()
 
   while (numCycles <= NUM_CYCLES)
   {
-    intList = generateRandomArray(NUM_ELEMENTS, 1, 100000);
+    intList = generateRandomArray(NUM_ELEMENTS, MIN_VAL, MAX_VAL);
     copyOfList = makeDeepCopyOfArray(intList, NUM_ELEMENTS);
 
     printf(".");
