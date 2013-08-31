@@ -9,11 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <locale.h>
 
-#include "bubblesort.h"
-#include "quicksort.h"
-#include "arbslowsort.h"
 #include "randomgenerator.h"
 #include "sortingfunctioncalls.h"
 
@@ -47,15 +43,10 @@ int main(int argc, char * argv[])
 
   intList = generateRandomArray(numElements, 1, 1000);
 
-  setlocale(LC_NUMERIC, "");
-
-  /* Using ' to format numbers with commas between every third and fourth digit.
-   * URL: http://stackoverflow.com/questions/11694901/how-can-i-format-currency-with-commas-in-c; Accessed on 29 August
-   * 2013 */
   printf("Clocks per second: %li.\n\n", CLOCKS_PER_SEC);
   printf("Time for bubble sort: %lf sec\n\n", sortUsingBubbleSort(intList, numElements));
   printf("Time for quicksort: %lf sec\n\n", sortUsingQuicksort(intList, numElements));
-  printf("Time for arbslowsort: %lf sec\n\n", sortUsingArbitrarilySlowSort(intList, numElements));
+  printf("Time for nathansort: %lf sec\n\n", sortUsingNathanSort(intList, numElements));
 
   return 0;
 }
