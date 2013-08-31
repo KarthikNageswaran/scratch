@@ -13,6 +13,7 @@
 
 #include "bubblesort.h"
 #include "quicksort.h"
+#include "nathansort.h"
 #include "randomgenerator.h"
 #include "lists.h"
 #include "printarrays.h"
@@ -22,7 +23,7 @@
 #define MIN_VAL 1
 #define MAX_VAL 100000
 
-double benchmarkBubbleSort()
+double benchmarkSortingAlgorithm(void (* sortingAlgorithm)(int *, const size_t))
 {
   double benchmark;
   double total;
@@ -47,47 +48,7 @@ double benchmarkBubbleSort()
 
     startOfTask = clock();
 
-    bubblesort(copyOfList, NUM_ELEMENTS);
-
-    endOfTask = clock();
-
-    printf("Sorted list.\n");
-
-    total = (((numCycles - 1) * benchmark) + (double) ((endOfTask - startOfTask) / CLOCKS_PER_SEC));
-    benchmark = (total / (double) numCycles);
-
-    numCycles++;
-  }
-
-  return benchmark;
-}
-
-double benchmarkQuickSort()
-{
-  double benchmark;
-  double total;
-  int numCycles;
-  clock_t startOfTask;
-  clock_t endOfTask;
-  int * intList;
-  int * copyOfList;
-
-  total = 0.0;
-  benchmark = 0.0;
-  numCycles = 1;
-
-  printf(".");
-
-  while (numCycles <= NUM_CYCLES)
-  {
-    intList = generateRandomArray(NUM_ELEMENTS, MIN_VAL, MAX_VAL);
-    copyOfList = makeDeepCopyOfArray(intList, NUM_ELEMENTS);
-
-    printf("Generated random list.\n");
-
-    startOfTask = clock();
-
-    quicksort(copyOfList, NUM_ELEMENTS);
+    (* sortingAlgorithm)(copyOfList, NUM_ELEMENTS);
 
     endOfTask = clock();
 
@@ -104,16 +65,20 @@ double benchmarkQuickSort()
 
 int main(int argc, char * argv[])
 {
+  void (* sortingAlgorithm) (int *, const size_t);
   double overallClocksPerSecond;
   
   setlocale(LC_NUMERIC, "");
 
-  /* Using ' to format numbers with commas between every third and fourth digit.
-   *    URL: http://stackoverflow.com/questions/11694901/how-can-i-format-currency-with-commas-in-c
-   *    Accessed on 29 August 2013 */
   printf("Clocks per second: %li.\n\n", CLOCKS_PER_SEC);
-  printf("Time for bubble sort: %lf sec. (list size: %li, iterations: %i)\n\n", benchmarkBubbleSort(), NUM_ELEMENTS, NUM_CYCLES);
-  printf("Time for quick sort: %lf sec. (list size: %li, iterations: %i)\n\n", benchmarkQuickSort(), NUM_ELEMENTS, NUM_CYCLES);
+  printf("Sorting lists of %li shuffled integers...\n", NUM_ELEMENTS);
+  
+  sortingAlgorithm = bubblesort;  
+  printf("Time for bubble sort: %lf sec. (list size: %li, iterations: %i)\n\n", benchmarkSortingAlgorithm(sortingAlgorithm), NUM_ELEMENTS, NUM_CYCLES);
+  sortingAlgorithm = quicksort;
+  printf("Time for quick sort: %lf sec. (list size: %li, iterations: %i)\n\n", benchmarkSortingAlgorithm(sortingAlgorithm), NUM_ELEMENTS, NUM_CYCLES);
+  sortingAlgorithm = nathansort;
+  printf("Time for nathan sort: %lf sec. (list size: %li, iterations: %i)\n\n", benchmarkSortingAlgorithm(sortingAlgorithm), NUM_ELEMENTS, NUM_CYCLES);
 
   return 0;
 }
