@@ -15,14 +15,14 @@
 /**
  * Generates a list of maxValue possible values (minValue..maxValue).
  */
-int * generateListOfPossibleValues(const int minValue, const int maxValue)
+int * generateListOfPossibleValues(const unsigned int minValue, const unsigned int maxValue)
 {
   static int * controlArray;
   int index;
   
   controlArray = calloc((maxValue - minValue), sizeof(int));
 
-  for (index = minValue; index < maxValue; index++)
+  for (index = minValue; index <= maxValue; index++)
   {
     controlArray[index] = (index + 1);
   }
@@ -33,7 +33,7 @@ int * generateListOfPossibleValues(const int minValue, const int maxValue)
 /**
  * Shuffles a list of possible values.
  */
-int * shufflePossibleValues(int * possibleValues, size_t numValues)
+int * shufflePossibleValues(int * possibleValues, const size_t numValues)
 {
   int index;
   int nextRand;
@@ -57,7 +57,7 @@ int * shufflePossibleValues(int * possibleValues, size_t numValues)
 /**
  * Generates a random list of numbers - exposed by randomgenerator.h.
  */ 
-int * generateRandomArray(size_t arraySize, const int minValue, const int maxValue)
+int * generateRandomArray(const size_t arraySize, const unsigned int minValue, const unsigned int maxValue)
 {
   static int * array;
   int * shuffledValues = shufflePossibleValues(generateListOfPossibleValues(minValue, maxValue), arraySize);
