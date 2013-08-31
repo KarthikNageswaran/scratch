@@ -1,10 +1,10 @@
 /*
- *  * sorting.c
- *   *
- *    *  Created on: Aug 27, 2013
- *     *      Author: Nathan Lane
- *      *       Class: CSIS-2430
- *       */
+ * sorting.c
+ *
+ *  Created on: Aug 27, 2013
+ *      Author: Nathan Lane
+ *       Class: CSIS-2430
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -59,6 +59,9 @@ double benchmarkSortingAlgorithm(void (* sortingAlgorithm)(int *, const size_t))
 
     numCycles++;
   }
+  
+  free(copyOfList);
+  free(intList);
 
   return benchmark;
 }

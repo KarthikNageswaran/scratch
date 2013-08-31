@@ -8,6 +8,7 @@
  
 #include <time.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "sortingfunctioncalls.h"
 #include "lists.h"
@@ -37,6 +38,8 @@ double sortUsingNathanSort(int * unsortedList, const size_t size)
   printf("Sorted list (Nathan Sort): ");
   printarray(copyOfList, size);
   
+  free(copyOfList);
+  
   return (double)((endOfTask - startOfTask) / CLOCKS_PER_SEC);
 }
 
@@ -64,6 +67,8 @@ double sortUsingBubbleSort(int * unsortedList, const size_t size)
 
   printf("Sorted list (Bubble Sort): ");
   printarray(copyOfList, size);
+  
+  free(copyOfList);
   
   return (double)((endOfTask - startOfTask) / CLOCKS_PER_SEC);
 }
@@ -93,6 +98,8 @@ double sortUsingQuicksort(int * unsortedList, const size_t size)
 
   printf("Sorted list (Quicksort): ");
   printarray(copyOfList, size);
+  
+  free(copyOfList);
   
   return (double)((endOfTask - startOfTask) / CLOCKS_PER_SEC);
 }

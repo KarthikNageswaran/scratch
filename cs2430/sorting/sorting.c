@@ -47,6 +47,8 @@ int main(int argc, char * argv[])
   printf("Time for bubble sort: %lf sec\n\n", sortUsingBubbleSort(intList, numElements));
   printf("Time for quicksort: %lf sec\n\n", sortUsingQuicksort(intList, numElements));
   printf("Time for nathansort: %lf sec\n\n", sortUsingNathanSort(intList, numElements));
+  
+  free(intList);
 
   return 0;
 }
