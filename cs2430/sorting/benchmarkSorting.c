@@ -71,8 +71,8 @@ int main(int argc, char * argv[])
   /* Using ' to format numbers with commas between every third and fourth digit.
    *    URL: http://stackoverflow.com/questions/11694901/how-can-i-format-currency-with-commas-in-c
    *    Accessed on 29 August 2013 */
-  printf("Clocks per second: %'li.\n\n", CLOCKS_PER_SEC);
-  printf("Time for bubble sort: %'.4lf sec\n\n", benchmarkBubbleSort());
+  printf("Clocks per second: %li.\n\n", CLOCKS_PER_SEC);
+  printf("Time for bubble sort: %lf sec.\n\n", benchmarkBubbleSort());
 
   return 0;
 }
