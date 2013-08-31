@@ -1,5 +1,5 @@
 /*
- * arbslowsort.c
+ * nathansort.c
  *
  *  Created on: Aug 30, 2013
  *      Author: Nathan Lane
@@ -8,15 +8,15 @@
 
 #include <stdio.h>
 
-#include "arbslowsort.h"
+#include "nathansort.h"
 #include "printarrays.h"
 #include "lists.h"
 
 /**
- * This is an arbitrarily slow sorting algorithm.
- * I think that worst-case-scenario is about O((n!)^n).
+ * This is a unique sorting algorithm, but I think it is 
+ * pretty slow - something like: O((n!)^n).
  */
-void arbslowsort(int * unsortedList, const size_t size)
+void nathansort(int * unsortedList, const size_t size)
 {
   static int * newList;
   int * copyOfList;
@@ -76,6 +76,7 @@ void arbslowsort(int * unsortedList, const size_t size)
     newList[(size - remainingSize - 1)] = lowestValue;
   }
 
+  /* Copy newList into unsortedList */
   for (listIndex = 0; listIndex < size; listIndex++)
   {
     unsortedList[listIndex] = newList[listIndex];
