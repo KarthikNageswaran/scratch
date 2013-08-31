@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <locale.h>
 
 #include "bubblesort.h"
 #include "quicksort.h"
@@ -17,20 +18,16 @@
 #include "lists.h"
 #include "printarrays.h"
 
-#define ARB_INT_MIN 1
-#define ARB_INT_MAX 1000000000
+#define NUM_CYCLES 1
+#define NUM_ELEMENTS 100000
+#define MIN_VAL 1
+#define MAX_VAL 100000
 
-double benchmarkSortingAlgorithm(
-  void (* sortingAlgorithm)(int *, const size_t), 
-  const unsigned int numIterations, 
-  const size_t numElements, 
-  const unsigned int minValue, 
-  const unsigned int maxValue
-)
+double benchmarkSortingAlgorithm(void (* sortingAlgorithm)(int *, const size_t))
 {
   double benchmark;
   double total;
-  int iteration;
+  int numCycles;
   clock_t startOfTask;
   clock_t endOfTask;
   int * intList;
@@ -38,91 +35,50 @@ double benchmarkSortingAlgorithm(
 
   total = 0.0;
   benchmark = 0.0;
-  iteration = 1;
+  numCycles = 1;
 
   printf(".");
 
-  while (iteration <= numIterations)
+  while (numCycles <= NUM_CYCLES)
   {
-    intList = generateRandomArray(numElements, minValue, maxValue);
-    copyOfList = makeDeepCopyOfArray(intList, numElements);
+    intList = generateRandomArray(NUM_ELEMENTS, MIN_VAL, MAX_VAL);
+    copyOfList = makeDeepCopyOfArray(intList, NUM_ELEMENTS);
 
     printf("Generated random list.\n");
 
     startOfTask = clock();
 
-    (* sortingAlgorithm)(copyOfList, numElements);
+    (* sortingAlgorithm)(copyOfList, NUM_ELEMENTS);
 
     endOfTask = clock();
 
     printf("Sorted list.\n");
 
-    total = (((iteration - 1) * benchmark) + (double) ((endOfTask - startOfTask) / CLOCKS_PER_SEC));
-    benchmark = (total / (double) iteration);
+    total = (((numCycles - 1) * benchmark) + (double) ((endOfTask - startOfTask) / CLOCKS_PER_SEC));
+    benchmark = (total / (double) numCycles);
 
-    iteration++;
+    numCycles++;
   }
-  
-  free(intList);
-  free(copyOfList);
 
   return benchmark;
-}
-
-void printUsage(char * programName)
-{
-  printf("usage: %s <num-iterations> <num-elements> <min-value> <max-value>\n", programName);
-  printf("  - num-iterations: number of times to test each algorithm.\n");
-  printf("  - num-elements: number of elements to size each unsorted array to.\n");
-  printf("  - min-value: minimum value to place in unsorted array.\n");
-  printf("  - max-value: maximum value to place in unsorted array.\n");
-  printf("  Note that the difference between the max-value and min-value must\n");
-  printf("  be greater than, or equal to num-elements.\n");
-  printf("\n No value may be less than %i or greater than %i.\n\n", ARB_INT_MIN, ARB_INT_MAX);
 }
 
 int main(int argc, char * argv[])
 {
   void (* sortingAlgorithm) (int *, const size_t);
   double overallClocksPerSecond;
-  unsigned int numIterations;
-  unsigned int numElements;
-  unsigned int minValue;
-  unsigned int maxValue;
   
-  if (argc < 5)
-  {
-    printUsage(argv[0]);
-	
-	return 1;
-  }
-  else
-  {
-    numIterations = atoi(argv[1]);
-	numElements = atoi(argv[2]);
-	minValue = atoi(argv[3]);
-	maxValue = atoi(argv[4]);
-	
-	if (minValue < ARB_INT_MIN || maxValue > ARB_INT_MAX)
-	{
-	  printf("Min value or max value was out of range:\n");
-	  printf("  - min value may be no less than: %i.\n", ARB_INT_MIN);
-	  printf("  - max value may be no more than: %i.\n", ARB_INT_MAX);
-	  
-	  return 2;
-	}
-  }
-  
+  setlocale(LC_NUMERIC, "");
+
   printf("Clocks per second: %li.\n\n", CLOCKS_PER_SEC);
-  printf("Sorting lists of %li shuffled integers...\n", numElements);
-  printf("Specs: iterations=%i, number of elements=%i, minimum value=%i, maximum value=%i.\n", numIterations, numElements, minValue, maxValue);
+  printf("Sorting lists of %li shuffled integers...\n", NUM_ELEMENTS);
   
   sortingAlgorithm = bubblesort;  
-  printf("Time for bubble sort: %lf sec. (list size: %li, iterations: %i)\n\n", benchmarkSortingAlgorithm(sortingAlgorithm, numIterations, numElements, minValue, maxValue), numElements, numIterations);
+  printf("Time for bubble sort: %lf sec. (list size: %li, iterations: %i)\n\n", benchmarkSortingAlgorithm(sortingAlgorithm), NUM_ELEMENTS, NUM_CYCLES);
   sortingAlgorithm = quicksort;
-  printf("Time for quick sort: %lf sec. (list size: %li, iterations: %i)\n\n", benchmarkSortingAlgorithm(sortingAlgorithm, numIterations, numElements, minValue, maxValue), numElements, numIterations);
+  printf("Time for quick sort: %lf sec. (list size: %li, iterations: %i)\n\n", benchmarkSortingAlgorithm(sortingAlgorithm), NUM_ELEMENTS, NUM_CYCLES);
   sortingAlgorithm = nathansort;
-  printf("Time for nathan sort: %lf sec. (list size: %li, iterations: %i)\n\n", benchmarkSortingAlgorithm(sortingAlgorithm, numIterations, numElements, minValue, maxValue), numElements, numIterations);
+  printf("Time for nathan sort: %lf sec. (list size: %li, iterations: %i)\n\n", benchmarkSortingAlgorithm(sortingAlgorithm), NUM_ELEMENTS, NUM_CYCLES);
 
   return 0;
 }
