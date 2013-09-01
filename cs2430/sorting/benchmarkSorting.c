@@ -69,19 +69,18 @@ double benchmarkSortingAlgorithm(void (* sortingAlgorithm)(int *, const size_t))
 int main(int argc, char * argv[])
 {
   void (* sortingAlgorithm) (int *, const size_t);
-  double overallClocksPerSecond;
   
   setlocale(LC_NUMERIC, "");
 
   printf("Clocks per second: %li.\n\n", CLOCKS_PER_SEC);
-  printf("Sorting lists of %li shuffled integers...\n", NUM_ELEMENTS);
+  printf("Sorting lists of %i shuffled integers...\n", NUM_ELEMENTS);
   
   sortingAlgorithm = bubblesort;  
-  printf("Time for bubble sort: %lf sec. (list size: %li, iterations: %i)\n\n", benchmarkSortingAlgorithm(sortingAlgorithm), NUM_ELEMENTS, NUM_CYCLES);
+  printf("Time for bubble sort: %lf sec. (list size: %i, iterations: %i)\n\n", benchmarkSortingAlgorithm(sortingAlgorithm), NUM_ELEMENTS, NUM_CYCLES);
   sortingAlgorithm = quicksort;
-  printf("Time for quick sort: %lf sec. (list size: %li, iterations: %i)\n\n", benchmarkSortingAlgorithm(sortingAlgorithm), NUM_ELEMENTS, NUM_CYCLES);
+  printf("Time for quick sort: %lf sec. (list size: %i, iterations: %i)\n\n", benchmarkSortingAlgorithm(sortingAlgorithm), NUM_ELEMENTS, NUM_CYCLES);
   sortingAlgorithm = nathansort;
-  printf("Time for nathan sort: %lf sec. (list size: %li, iterations: %i)\n\n", benchmarkSortingAlgorithm(sortingAlgorithm), NUM_ELEMENTS, NUM_CYCLES);
+  printf("Time for nathan sort: %lf sec. (list size: %i, iterations: %i)\n\n", benchmarkSortingAlgorithm(sortingAlgorithm), NUM_ELEMENTS, NUM_CYCLES);
 
   return 0;
 }
