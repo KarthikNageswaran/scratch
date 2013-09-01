@@ -36,7 +36,7 @@ int * generateListOfPossibleValues(const unsigned int minValue, const unsigned i
 /**
  * Shuffles a list of possible values.
  */
-int * shufflePossibleValues(int * possibleValues, const size_t numValues)
+int * shufflePossibleValues(int * possibleValues, const int maxValue, const size_t numValues)
 {
   int index;
   int nextRand;
@@ -46,7 +46,7 @@ int * shufflePossibleValues(int * possibleValues, const size_t numValues)
 
   for (index = 0; index < numValues; index++)
   {
-    nextRand = rand() % numValues;
+    nextRand = rand() % maxValue;
 
     swapValue = possibleValues[index];
 
@@ -63,7 +63,7 @@ int * shufflePossibleValues(int * possibleValues, const size_t numValues)
 int * generateRandomArray(const size_t arraySize, const unsigned int minValue, const unsigned int maxValue)
 {
   static int * array;
-  int * shuffledValues = shufflePossibleValues(generateListOfPossibleValues(minValue, maxValue), arraySize);
+  int * shuffledValues = shufflePossibleValues(generateListOfPossibleValues(minValue, maxValue), maxValue, arraySize);
   int index;
 
   array = calloc(arraySize, sizeof(int));
@@ -72,6 +72,8 @@ int * generateRandomArray(const size_t arraySize, const unsigned int minValue, c
   {
     array[index] = shuffledValues[index];
   }
+  
+  free(shuffledValues);
 
   return array;
 }
