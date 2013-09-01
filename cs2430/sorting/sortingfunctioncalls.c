@@ -10,7 +10,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "bubblesort.h"
+#include "quicksort.h"
+#include "nathansort.h"
 #include "sortingfunctioncalls.h"
+#include "printarrays.h"
 #include "lists.h"
 
 /**

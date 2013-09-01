@@ -11,7 +11,7 @@
 
 #include <stdlib.h>
 
-double sortUsingNathanwSort(int * unsortedList, const size_t size);
+double sortUsingNathanSort(int * unsortedList, const size_t size);
 
 double sortUsingBubbleSort(int * unsortedList, const size_t size);
 

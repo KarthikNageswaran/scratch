@@ -19,12 +19,15 @@ int * generateListOfPossibleValues(const unsigned int minValue, const unsigned i
 {
   static int * controlArray;
   int index;
+  size_t size;
   
-  controlArray = calloc((maxValue - minValue), sizeof(int));
+  size = (maxValue - minValue + 1);
+  
+  controlArray = calloc(size, sizeof(int));
 
-  for (index = minValue; index <= maxValue; index++)
+  for (index = 0; index < size; index++)
   {
-    controlArray[index] = (index + 1);
+    controlArray[index] = (index);
   }
 
   return controlArray;
