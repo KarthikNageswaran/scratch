@@ -1,5 +1,5 @@
 /*
- * sorting.c
+ * benchmarkSorting.c
  *
  *  Created on: Aug 27, 2013
  *      Author: Nathan Lane
