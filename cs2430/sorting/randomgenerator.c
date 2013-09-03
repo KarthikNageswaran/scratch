@@ -12,21 +12,22 @@
 
 #include "randomgenerator.h"
 
-#define MAX_POSSIBLE_VALUES 1000
-
 /**
- * Generates a list of 1,000 possible values (1..1000).
+ * Generates a list of maxValue possible values (minValue..maxValue).
  */
-int * generateListOfPossibleValues(const int minValue, const int maxValue)
+int * generateListOfPossibleValues(const unsigned int minValue, const unsigned int maxValue)
 {
   static int * controlArray;
   int index;
+  size_t size;
   
-  controlArray = calloc((maxValue - minValue), sizeof(int));
+  size = (maxValue - minValue + 1);
+  
+  controlArray = calloc(size, sizeof(int));
 
-  for (index = minValue; index < maxValue; index++)
+  for (index = 0; index < size; index++)
   {
-    controlArray[index] = (index + 1);
+    controlArray[index] = (index);
   }
 
   return controlArray;
@@ -35,7 +36,7 @@ int * generateListOfPossibleValues(const int minValue, const int maxValue)
 /**
  * Shuffles a list of possible values.
  */
-int * shufflePossibleValues(int * possibleValues)
+int * shufflePossibleValues(int * possibleValues, const int maxValue, const size_t numValues)
 {
   int index;
   int nextRand;
@@ -43,9 +44,9 @@ int * shufflePossibleValues(int * possibleValues)
 
   srand(time(NULL));
 
-  for (index = 0; index < MAX_POSSIBLE_VALUES; index++)
+  for (index = 0; index < numValues; index++)
   {
-    nextRand = rand() % 1000;
+    nextRand = rand() % maxValue;
 
     swapValue = possibleValues[index];
 
@@ -59,10 +60,10 @@ int * shufflePossibleValues(int * possibleValues)
 /**
  * Generates a random list of numbers - exposed by randomgenerator.h.
  */ 
-int * generateRandomArray(size_t arraySize, const int minValue, const int maxValue)
+int * generateRandomArray(const size_t arraySize, const unsigned int minValue, const unsigned int maxValue)
 {
   static int * array;
-  int * shuffledValues = shufflePossibleValues(generateListOfPossibleValues(minValue, maxValue));
+  int * shuffledValues = shufflePossibleValues(generateListOfPossibleValues(minValue, maxValue), maxValue, arraySize);
   int index;
 
   array = calloc(arraySize, sizeof(int));
@@ -71,7 +72,8 @@ int * generateRandomArray(size_t arraySize, const int minValue, const int maxVal
   {
     array[index] = shuffledValues[index];
   }
+  
+  free(shuffledValues);
 
   return array;
 }
-

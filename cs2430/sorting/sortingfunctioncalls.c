@@ -8,8 +8,13 @@
  
 #include <time.h>
 #include <stdio.h>
+#include <stdlib.h>
 
+#include "bubblesort.h"
+#include "quicksort.h"
+#include "nathansort.h"
 #include "sortingfunctioncalls.h"
+#include "printarrays.h"
 #include "lists.h"
 
 /**
@@ -17,7 +22,7 @@
  *   URL: http://stackoverflow.com/a/5249150
  *   Accessed on: 28 August 2013
  */
-double sortUsingArbitrarilySlowSort(int * unsortedList, const size_t size)
+double sortUsingNathanSort(int * unsortedList, const size_t size)
 {
   int * copyOfList;
   clock_t startOfTask;
@@ -25,17 +30,19 @@ double sortUsingArbitrarilySlowSort(int * unsortedList, const size_t size)
   
   copyOfList = makeDeepCopyOfArray(unsortedList, size);
   
-  printf("Unsorted list (ArbSlow Sort): ");
+  printf("Unsorted list (Nathan Sort): ");
   printarray(copyOfList, size);
 
   startOfTask = clock();
   
-  arbslowsort(copyOfList, size);
+  nathansort(copyOfList, size);
   
   endOfTask = clock();
 
-  printf("Sorted list (ArbSlow Sort): ");
+  printf("Sorted list (Nathan Sort): ");
   printarray(copyOfList, size);
+  
+  free(copyOfList);
   
   return (double)((endOfTask - startOfTask) / CLOCKS_PER_SEC);
 }
@@ -65,6 +72,8 @@ double sortUsingBubbleSort(int * unsortedList, const size_t size)
   printf("Sorted list (Bubble Sort): ");
   printarray(copyOfList, size);
   
+  free(copyOfList);
+  
   return (double)((endOfTask - startOfTask) / CLOCKS_PER_SEC);
 }
 
@@ -93,6 +102,8 @@ double sortUsingQuicksort(int * unsortedList, const size_t size)
 
   printf("Sorted list (Quicksort): ");
   printarray(copyOfList, size);
+  
+  free(copyOfList);
   
   return (double)((endOfTask - startOfTask) / CLOCKS_PER_SEC);
 }
