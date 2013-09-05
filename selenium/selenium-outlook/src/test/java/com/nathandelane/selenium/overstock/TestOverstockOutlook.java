@@ -48,8 +48,10 @@ public class TestOverstockOutlook {
     96, // Carrier Code Not Found
     4, // Deleted Items
     103, // Subversion
+    4, // Deleted Items
+    10, // Stage Requests
     4 // Deleted Items
-      );
+  );
 
   @Test
   public void testOstkMailDeleteUnwantedMail() throws InterruptedException {
