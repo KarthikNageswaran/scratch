@@ -6,6 +6,7 @@
   <packaging>pom</packaging>
   <modules>
   	<module>selenium-app</module>
+  	<module>selenium-outlook</module>
   </modules>
   <dependencyManagement>
   	<dependencies>

@@ -1,13 +1,14 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>com.nathandelane.selenium</groupId>
-		<artifactId>selenium</artifactId>
-		<version>0.1-SNAPSHOT</version>
-	</parent>
-	<artifactId>selenium-app</artifactId>
-	<dependencies>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.nathandelane.selenium</groupId>
+    <artifactId>selenium</artifactId>
+    <version>0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>selenium-outlook</artifactId>
+  <name>Selenium Outlook Project</name>
+  <description>For automating outlook mail deletion while I'm away</description>
+  <dependencies>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
@@ -28,5 +29,5 @@
 			<groupId>org.pojomatic</groupId>
 			<artifactId>pojomatic</artifactId>
 		</dependency>
-	</dependencies>
+  </dependencies>
 </project>
