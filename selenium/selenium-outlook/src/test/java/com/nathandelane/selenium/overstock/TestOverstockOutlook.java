@@ -1,6 +1,8 @@
 package com.nathandelane.selenium.overstock;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -14,44 +16,61 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 public class TestOverstockOutlook {
 
-  private static final String HTTPS_OUTLOOK_OVERSTOCK_COM = JOptionPane.showInputDialog("Enter URL for Mail");
+  private static final String HTTPS_OUTLOOK_OVERSTOCK_COM = (System.getProperty("url") == null
+      ? JOptionPane.showInputDialog("Enter URL for Mail")
+      : System.getProperty("url"));
 
-  private static final List<Integer> FOLDERS_TO_CLEAN_OUT = Lists.newArrayList(
-    4, // Deleted Items
-    11, // Crons
-    4, // Deleted Items
-    13, // Jenkins
-    4, // Deleted Items
-    14, // Logwatch
-    4, // Deleted Items
-    15, // Oh No
-    4, // Deleted Items
-    17, // Production Alerts
-    4, // Deleted Items
-    18, // Splunk
-    4, // Deleted Items
-    19, // Usage
-    4, // Deleted Items
-    21, // Stage Alerts
-    4, // Deleted Items
-    28, // Splunk
-    4, // Deleted Items
-    29, // Splunk 249
-    4, // Deleted Items
-    79, // Jira
-    4, // Deleted Items
-    80, // Spec Processor
-    4, // Deleted Items
-    96, // Carrier Code Not Found
-    4, // Deleted Items
-    103, // Subversion
-    4, // Deleted Items
-    10, // Stage Requests
-    4 // Deleted Items
-  );
+  private static final Map<Integer, String> FOLDERS_TO_CLEAN_OUT = Maps.newHashMap();
+  static {
+//    6, // Inbox
+//    4, // Deleted Items
+    FOLDERS_TO_CLEAN_OUT.put(11, "Crons");
+    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
+    FOLDERS_TO_CLEAN_OUT.put(13, "DevOps");
+    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
+    FOLDERS_TO_CLEAN_OUT.put(14, "Jenkins");
+    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
+    FOLDERS_TO_CLEAN_OUT.put(15, "Logwatch");
+    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
+    FOLDERS_TO_CLEAN_OUT.put(16, "Oh Nos");
+    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
+    FOLDERS_TO_CLEAN_OUT.put(17, "Performance");
+    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
+    FOLDERS_TO_CLEAN_OUT.put(18, "Production Alerts");
+    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
+    FOLDERS_TO_CLEAN_OUT.put(19, "Splunk");
+    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
+    FOLDERS_TO_CLEAN_OUT.put(20, "Usage");
+    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
+    FOLDERS_TO_CLEAN_OUT.put(23, "Stage Alerts");
+    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
+    FOLDERS_TO_CLEAN_OUT.put(24, "Hadoop");
+    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
+    FOLDERS_TO_CLEAN_OUT.put(29, "Splunk");
+    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
+    FOLDERS_TO_CLEAN_OUT.put(30, "Splunk Test249");
+    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
+    FOLDERS_TO_CLEAN_OUT.put(80, "Jira");
+    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
+    FOLDERS_TO_CLEAN_OUT.put(81, "spec processor");
+    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
+    FOLDERS_TO_CLEAN_OUT.put(97, "Carrier Code Not Found");
+    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
+    FOLDERS_TO_CLEAN_OUT.put(104, "Subversion");
+    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
+//    31, // Stage Requests
+//    4 // Deleted Items
+  }
+
+  private static final Map<Integer, List<String>> FROM_ADDRESSES_TO_DELETE = new HashMap<Integer, List<String>>();
+  static {
+    FROM_ADDRESSES_TO_DELETE.put(6, Lists.<String> newArrayList("webalert@oversto... ", "splunk@overstock... ",
+      "splunksearch.sta... ", "Cron Daemon ", "nagios.stage@ove... "));
+  }
 
   @Test
   public void testOstkMailDeleteUnwantedMail() throws InterruptedException {
@@ -91,24 +110,38 @@ public class TestOverstockOutlook {
         final WebElement userNameField = driver.findElementByCssSelector("#username");
         final WebElement password = driver.findElementByCssSelector("#password");
 
-        userNameField.sendKeys(JOptionPane.showInputDialog("Please enter your user name."));
+        userNameField.sendKeys(System.getProperty("username") == null
+            ? JOptionPane.showInputDialog("Please enter your user name.")
+            : System.getProperty("username"));
 
-        final JPanel panel = new JPanel();
-        final JLabel label = new JLabel("Enter a password:");
-        final JPasswordField pass = new JPasswordField(10);
-        panel.add(label);
-        panel.add(pass);
-        pass.requestFocusInWindow();
-        String[] options = new String[] { "OK", "Cancel" };
-        int option = JOptionPane.showOptionDialog(null, panel, "The title", JOptionPane.NO_OPTION,
-          JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-        if (option == 0) // pressing OK button
-        {
-          final char[] passwordValue = pass.getPassword();
-          password.sendKeys(new String(passwordValue));
+        int option = 0;
+        String passwordValue = "";
+        JPanel panel = new JPanel();
+        JLabel label = new JLabel("Enter a password:");
+        JPasswordField pass = new JPasswordField(10);
+
+        if (System.getProperty("password") == null) {
+          panel.add(label);
+          panel.add(pass);
+          pass.requestFocusInWindow();
+          String[] options = new String[] { "OK", "Cancel" };
+          option = JOptionPane.showOptionDialog(null, panel, "The title", JOptionPane.NO_OPTION,
+            JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+          passwordValue = new String(pass.getPassword());
+        }
+        else {
+          passwordValue = System.getProperty("password");
+        }
+
+        if (option == 0) { // pressing OK button
+          System.out.println("Option OK was selected.");
+
+          password.sendKeys(passwordValue);
 
           final WebElement submitButton = driver.findElementByCssSelector(".btn");
           submitButton.click();
+
+          Thread.sleep(3000);
 
           final WebElement logoutLink = driver.findElementByCssSelector("#lo");
 
@@ -123,46 +156,61 @@ public class TestOverstockOutlook {
               final WebElement folderSelectList = driver.findElementByCssSelector("#selbrfld");
 
               if (folderSelectList.isDisplayed()) {
-                for (Integer nextFolderIndex : FOLDERS_TO_CLEAN_OUT) {
-                  new Select(driver.findElementByCssSelector("#selbrfld")).selectByIndex(nextFolderIndex);
+                for (Map.Entry<Integer, String> nextFolderEntry : FOLDERS_TO_CLEAN_OUT.entrySet()) {
+                  new Select(driver.findElementByCssSelector("#selbrfld")).selectByIndex(nextFolderEntry.getKey());
 
-                  final WebElement gotoFolderLink = driver.findElementByCssSelector("#lnkGotoFldr");
+                  final List<WebElement> selectedOptions = new Select(driver.findElementByCssSelector("#selbrfld")).getAllSelectedOptions();
 
-                  if (gotoFolderLink.isDisplayed()) {
-                    gotoFolderLink.click();
+                  System.out.println(String.format("Selected option: %1$s, expected: %2$s", selectedOptions.get(0).getAttribute("title"), nextFolderEntry.getValue()));
 
-                    int numRows = driver.findElementsByCssSelector(".lvw input[type='checkbox']").size();
+                  if (selectedOptions.size() == 1 && selectedOptions.get(0).getAttribute("title").contains(nextFolderEntry.getValue())) {
+                    final WebElement gotoFolderLink = driver.findElementByCssSelector("#lnkGotoFldr");
 
-                    if (numRows > 1) {
-                      do {
-                        final WebElement selectAllCheckbox = driver
-                            .findElementByCssSelector(".chd > input[title='Select All Items']");
+                    if (gotoFolderLink.isDisplayed()) {
+                      gotoFolderLink.click();
 
-                        if (selectAllCheckbox.isDisplayed()) {
-                          selectAllCheckbox.click();
+//                    if (FROM_ADDRESSES_TO_DELETE.containsKey(nextFolderIndex)) {
+//                      final List<String> fromEmailAddresses = FROM_ADDRESSES_TO_DELETE.get(nextFolderIndex);
+//
+//                      for (String nextEmailAddress : fromEmailAddresses) {
+//                        final WebElement
+//                      }
+//                    }
+//                    else {
+                        int numRows = driver.findElementsByCssSelector(".lvw input[type='checkbox']").size();
 
-                          final WebElement deleteButton = driver.findElementByCssSelector("#lnkHdrdelete");
+                        if (numRows > 1) {
+                          do {
+                            final WebElement selectAllCheckbox = driver
+                                .findElementByCssSelector(".chd > input[title='Select All Items']");
 
-                          if (deleteButton.isDisplayed()) {
-                            deleteButton.click();
+                            if (selectAllCheckbox.isDisplayed()) {
+                              selectAllCheckbox.click();
 
-                            Thread.sleep(500);
+                              final WebElement deleteButton = driver.findElementByCssSelector("#lnkHdrdelete");
 
-                            try {
-                              Alert javascriptAlert = driver.switchTo().alert();
-                              javascriptAlert.accept();
+                              if (deleteButton.isDisplayed()) {
+                                deleteButton.click();
+
+                                Thread.sleep(500);
+
+                                try {
+                                  Alert javascriptAlert = driver.switchTo().alert();
+                                  javascriptAlert.accept();
+                                }
+                                catch (Exception e) {
+                                  // Do nothing - no alert found.
+                                }
+                              }
                             }
-                            catch (Exception e) {
-                              // Do nothing - no alert found.
-                            }
+
+                            Thread.sleep(1000);
+
+                            numRows = driver.findElementsByCssSelector(".lvw tbody tr").size();
                           }
+                          while (numRows > 1 && numRows != 4 && numRows != 0);
                         }
-
-                        Thread.sleep(1000);
-
-                        numRows = driver.findElementsByCssSelector(".lvw tbody tr").size();
-                      }
-                      while (numRows > 1 && numRows != 4 && numRows != 0);
+//                    }
                     }
                   }
 
