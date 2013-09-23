@@ -24,14 +24,4 @@
  */
 char * baseexpansion(int, int, size_t *);
 
-/**
- * Base expansion algorithm - assumes you want to convert from long.
- * 
- * where:
- *  - long original integer
- *  - int base to expand to
- *  - size_t pointer to size of result
- */
-char * baseexpansion(long, int, size_t *);
-
 #endif /* ALGORITHMONE_H_ */
