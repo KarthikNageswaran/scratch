@@ -1,14 +1,14 @@
 /*
  * sieve.c
  *
- *  This is an implementation of one of the sieve algorithms.
- *
  *  Created on: Sep 22, 2013
  *      Author: Nathan Lane
  *       Class: CSIS-2430
  */
 
-#include <stdbool.h>
+#include <stdlib.h>
+#include <time.h>
+#include <stdio.h>
 
 #include "sieve.h"
 
@@ -24,9 +24,10 @@ long gcd(long first, long second)
   return gcd(second, (first % second));
 }
 
-bool isPrime(long value)
+long nextPrime()
 {
-  bool result = false;
+  int numPrimes = 256;
+  long result = 0L;
   
   static long primes[] =
   {
@@ -62,7 +63,11 @@ bool isPrime(long value)
     472886461, 472886489, 472886507, 472886521, 472886527, 472886537, 472886539, 472886567,
     472886587, 472886591, 472886629, 472886641, 472886651, 472886657, 472886681, 472886707, 
     472886717, 472886749, 472886779, 472886809, 472886819, 472886833, 472886861, 472886879
-  }
+  };
   
+  result = primes[rand() % numPrimes];
+  
+  printf("%li ", result);
+
   return result;
 }
