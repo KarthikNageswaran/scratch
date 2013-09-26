@@ -17,7 +17,7 @@
  * 
  * where:
  *  - int b base of an exponent
- *  - char * n exponent in binary expansion form
+ *  - int b exponent
  *  - size_t size of exponent
  *  - int m number to modulate against
  */

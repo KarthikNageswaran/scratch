@@ -83,5 +83,7 @@ int main(int argv, char * argc[])
   testIterativeFibonacci(numItems);
   testRecursiveFibonacci(numItems);
   
+  printf("modexp: 45^645 mod 644=%i \n", recmodexp(45, 645, 644));
+  
   return 0;
 }
