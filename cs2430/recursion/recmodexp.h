@@ -17,10 +17,10 @@
  * Modular exponentiation algorithm.
  * 
  * where:
- *  - int base of an exponent
- *  - int exponent
- *  - int number to modulate against
+ *  - uint64_t base of an exponent
+ *  - uint64_t exponent
+ *  - uint64_t number to modulate against
  */
-int recmodexp(int, int, int);
+uint64_t recmodexp(uint64_t, uint64_t, uint64_t);
  
 #endif /* RECMODEXP_H_ */

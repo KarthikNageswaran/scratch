@@ -8,9 +8,11 @@
  *       Class: CSIS-2430
  */
 
+#include <stdint.h>
+
 #include "recmodexp.h"
 
-int square(int base)
+uint64_t square(uint64_t base)
 {
   return (base * base);
 }
@@ -19,11 +21,11 @@ int square(int base)
  * Modular exponentiation algorithm.
  * 
  * where:
- *  - int b base of an exponent
- *  - int n exponent
- *  - int m number to modulate against
+ *  - uint64_t b base of an exponent
+ *  - uint64_t n exponent
+ *  - uint64_t m number to modulate against
  */
-int recmodexp(int b, int n, int m)
+uint64_t recmodexp(uint64_t b, uint64_t n, uint64_t m)
 {
   if (n == 0)
   {
