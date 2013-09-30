@@ -1,7 +1,7 @@
 /*
- * fibonacci.c
+ * fibonacciIterative.c
  *
- * Fibonacci methods.
+ * Fibonacci - iterative method.
  *
  *  Created on: Sep 23, 2013
  *      Author: Nathan Lane
@@ -10,22 +10,8 @@
 
 #include <stdint.h>
 
-#include "fibonacci.h" 
- 
-uint64_t recursive_fib(uint64_t n)
-{
-  if (n == 0)
-  {
-    return 0;
-  }
-  else if (n == 1)
-  {
-    return 1;
-  }
+#include "fibonacciIterative.h" 
 
-  return recursive_fib(n - 1) + recursive_fib(n - 2);
-}
- 
 uint64_t iterative_fib(uint64_t n)
 {
   uint64_t x = 0;
