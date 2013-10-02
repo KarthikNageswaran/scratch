@@ -1,0 +1,12 @@
+(define (recursive_fib n)
+  (if (< n 2)
+    n
+
+  (+ (recursive_fib (- n 1)) (recursive_fib (- n 2))))
+
+(define main (lambda (n)
+  (display (string-append
+    (number->string (recursive_fib n))
+    "\nExecution time: "
+    (number->string (time (recursive_fib n)))
+    "seconds\n"))))
