@@ -45,7 +45,8 @@ char decrypt(short int offset, char c)
 {
   int indexOfC = getIndexOfC(c);
   int indexOfDc = ((indexOfC - offset) % 26);
-  
+
+  // Not certain why I need this hack.  
   if (indexOfDc < 0)
   {
     indexOfDc = (26 + indexOfDc);
