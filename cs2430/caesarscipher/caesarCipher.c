@@ -13,6 +13,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <ctype.h>
 
 char * possibleValues = "abcdefghijklmnopqrstuvwxyz";
 
@@ -20,14 +21,21 @@ int getIndexOfP(char p)
 {
   int indexOfP;
   char * cPtr = strchr(possibleValues, p);
+  bool switchedCase = false;
   
   if (cPtr == NULL)
   {
-    c = tolower(p);
+    p = tolower(p);
     cPtr = strchr(possibleValues, p);
+    switchedCase = true;
   }
   
   indexOfP = (int) (cPtr - possibleValues);
+  
+  if (switchedCase)
+  {
+    p = toupper(p);
+  }
   
   return indexOfP;
 }
@@ -35,10 +43,15 @@ int getIndexOfP(char p)
 char encrypt(short int k, char p)
 {
   int indexOfP = getIndexOfP(p);
-  int indexOfEc = ((indexOfP + k) % 26);  
-  char encryptedChar = possibleValues[indexOfEc];
+  int indexOfEp = ((indexOfP + k) % 26);  
   
-  return encryptedChar;
+  /* Wrap if the index is less than zero. */
+  if (indexOfEp < 0)
+  {
+    indexOfEp = (26 + indexOfEp);
+  }
+  
+  return possibleValues[indexOfEp];
 }
 
 char decrypt(short int k, char p)
@@ -46,13 +59,11 @@ char decrypt(short int k, char p)
   int indexOfP = getIndexOfP(p);
   int indexOfDp = ((indexOfP - k) % 26);
 
-  // Not certain why I need this hack.  
+  /* Wrap if the index is less than zero. */
   if (indexOfDp < 0)
   {
     indexOfDp = (26 + indexOfDp);
   }
   
-  char decryptedChar = possibleValues[indexOfDp];
-  
-  return decryptedChar;
+  return possibleValues[indexOfDp];
 }

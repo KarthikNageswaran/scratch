@@ -24,7 +24,10 @@ int main(int argv, char * argc[])
   
   if (argv != 4)
   {
-    printf("usage: %s (encrypt|decrypt) <shift-value> <message>\n", argc[0]);
+    printf("usage: %s <command> <k> <message>\n", argc[0]);
+    printf("  command: must be either encrypt or decrypt\n");
+    printf("  k: unsigned (positive) value used to shift alphabet per Caesar Cipher\n");
+    printf("  message: message to either encrypt or decrypt\n");
     
     return 1;
   }
@@ -34,23 +37,14 @@ int main(int argv, char * argc[])
   message = argc[3];
   start = message;
   
-  if (shiftValue < 0)
-  {
-    printf("Only positive values are allowed for shif-value.\n");
-    
-    return 3;
-  }
-  
   if (strcmp("encrypt", command) == 0)
   {
-    printf("Plain text: ");
+    printf("Plain text: %s\n", message);
   }
   else if (strcmp("decrypt", command) == 0)
   {
-    printf("Cipher text: ");
+    printf("Cipher text: %s\n", message);
   }
-  
-  printf("%s\n", message);
 
   while (*message != '\0')
   {
@@ -65,7 +59,7 @@ int main(int argv, char * argc[])
         *message = decrypt(shiftValue, *message);
       }
       else {
-        printf("Command %s is unknown.\n", argc[0]);
+        printf("Command %s is unknown.\n", argc[1]);
         
         return 2;
       }
