@@ -16,43 +16,43 @@
 
 char * possibleValues = "abcdefghijklmnopqrstuvwxyz";
 
-int getIndexOfC(char c)
+int getIndexOfP(char p)
 {
-  int indexOfC;
-  char * cPtr = strchr(possibleValues, c);
+  int indexOfP;
+  char * cPtr = strchr(possibleValues, p);
   
   if (cPtr == NULL)
   {
-    c = tolower(c);
-    cPtr = strchr(possibleValues, c);
+    c = tolower(p);
+    cPtr = strchr(possibleValues, p);
   }
   
-  indexOfC = (int) (cPtr - possibleValues);
+  indexOfP = (int) (cPtr - possibleValues);
   
-  return indexOfC;
+  return indexOfP;
 }
 
-char encrypt(short int offset, char c)
+char encrypt(short int k, char p)
 {
-  int indexOfC = getIndexOfC(c);
-  int indexOfEc = ((indexOfC + offset) % 26);  
+  int indexOfP = getIndexOfP(p);
+  int indexOfEc = ((indexOfP + k) % 26);  
   char encryptedChar = possibleValues[indexOfEc];
   
   return encryptedChar;
 }
 
-char decrypt(short int offset, char c)
+char decrypt(short int k, char p)
 {
-  int indexOfC = getIndexOfC(c);
-  int indexOfDc = ((indexOfC - offset) % 26);
+  int indexOfP = getIndexOfP(p);
+  int indexOfDp = ((indexOfP - k) % 26);
 
   // Not certain why I need this hack.  
-  if (indexOfDc < 0)
+  if (indexOfDp < 0)
   {
-    indexOfDc = (26 + indexOfDc);
+    indexOfDp = (26 + indexOfDp);
   }
   
-  char decryptedChar = possibleValues[indexOfDc];
+  char decryptedChar = possibleValues[indexOfDp];
   
   return decryptedChar;
 }
