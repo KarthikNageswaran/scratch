@@ -21,12 +21,6 @@ int getIndexOfP(char p)
   int indexOfP;
   char * cPtr = strchr(possibleValues, p);
   
-  if (cPtr == NULL)
-  {
-    p = tolower(p);
-    cPtr = strchr(possibleValues, p);
-  }
-  
   indexOfP = (int) (cPtr - possibleValues);
   
   return indexOfP;

@@ -45,6 +45,7 @@ void performCommand(char * command, char * message, short int k)
   char * possibleValues = "abcdefghijklmnopqrstuvwxyz";
   char * start;
   start = message;
+  bool swappedCase = false;
 
   if (strcmp("encrypt", command) == 0)
   {
@@ -59,6 +60,13 @@ void performCommand(char * command, char * message, short int k)
   {
     if (strchr(possibleValues, *message) != NULL || strchr(possibleValues, tolower(*message)) != NULL)
     {
+      if (isupper(*message))
+      {
+        *message = tolower(*message);
+        
+        swappedCase = true;
+      }
+      
       if (strcmp("encrypt", command) == 0)
       {
         *message = encrypt(k, *message);
@@ -71,6 +79,13 @@ void performCommand(char * command, char * message, short int k)
         printf("Command %s is unknown.\n", command);
         
         exit(2);
+      }
+      
+      if (swappedCase)
+      {
+        *message = toupper(*message);
+        
+        swappedCase = false;
       }
     }
     
