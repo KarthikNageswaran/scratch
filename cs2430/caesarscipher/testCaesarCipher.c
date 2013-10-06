@@ -13,31 +13,39 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
- 
-int main(int argv, char * argc[])
+#include <stdbool.h>
+#include <ctype.h>
+
+void printUsage(char * programName)
 {
-  char * possibleValues = "abcdefghijklmnopqrstuvwxyz";
-  char * command;
-  char * message;
-  char * start;
-  short int shiftValue;
-  
-  if (argv != 4)
+  printf("usage: %s <command> <k> <message>\n", programName);
+  printf("Caesar Cipher (encrypt: (p+k) mod 26, decrypt: (p-k) mod 26)\n");
+  printf("  command: must be either encrypt or decrypt\n");
+  printf("  k: unsigned (positive) value used to shift alphabet per Caesar Cipher\n");
+  printf("  message: message to either encrypt or decrypt. This is p.\n");
+}
+
+bool kIsNumeric(char * k)
+{
+  while (*k != '\0')
   {
-    printf("usage: %s <command> <k> <message>\n", argc[0]);
-    printf("Caesar Cipher (encrypt: (p+k) mod 26, decrypt: (p-k) mod 26)\n");
-    printf("  command: must be either encrypt or decrypt\n");
-    printf("  k: unsigned (positive) value used to shift alphabet per Caesar Cipher\n");
-    printf("  message: message to either encrypt or decrypt. This is p.\n");
+    if (!isdigit(*k))
+    {
+      return false;
+    }
     
-    return 1;
+    k++;
   }
   
-  command = argc[1];
-  shiftValue = atoi(argc[2]);
-  message = argc[3];
+  return true;
+}
+
+void performCommand(char * command, char * message, short int k)
+{
+  char * possibleValues = "abcdefghijklmnopqrstuvwxyz";
+  char * start;
   start = message;
-  
+
   if (strcmp("encrypt", command) == 0)
   {
     printf("Plain text: %s\n", message);
@@ -49,20 +57,20 @@ int main(int argv, char * argc[])
 
   while (*message != '\0')
   {
-    if (strchr(possibleValues, *message) != NULL)
+    if (strchr(possibleValues, *message) != NULL || strchr(possibleValues, tolower(*message)) != NULL)
     {
       if (strcmp("encrypt", command) == 0)
       {
-        *message = encrypt(shiftValue, *message);
+        *message = encrypt(k, *message);
       }
       else if (strcmp("decrypt", command) == 0)
       {
-        *message = decrypt(shiftValue, *message);
+        *message = decrypt(k, *message);
       }
       else {
-        printf("Command %s is unknown.\n", argc[1]);
+        printf("Command %s is unknown.\n", command);
         
-        return 2;
+        exit(2);
       }
     }
     
@@ -70,6 +78,32 @@ int main(int argv, char * argc[])
   }
   
   message = start;
+}
+ 
+int main(int argv, char * argc[])
+{
+  char * command;
+  char * message;
+  short int k;
+  
+  if (argv != 4)
+  {
+    printUsage(argc[0]);
+    
+    return 1;
+  }
+  else if (!kIsNumeric(argc[2]))
+  {
+    printf("k must be numeric.\n");
+    
+    return 2;
+  }
+  
+  command = argc[1];
+  k = atoi(argc[2]);
+  message = argc[3];
+
+  performCommand(command, message, k);  
   
   printf("%s\n", message);
   

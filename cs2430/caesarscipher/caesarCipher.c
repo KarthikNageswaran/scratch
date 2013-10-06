@@ -11,7 +11,6 @@
 #include "caesarCipher.h"
 
 #include <string.h>
-#include <stdbool.h>
 #include <stdio.h>
 #include <ctype.h>
 
@@ -21,21 +20,14 @@ int getIndexOfP(char p)
 {
   int indexOfP;
   char * cPtr = strchr(possibleValues, p);
-  bool switchedCase = false;
   
   if (cPtr == NULL)
   {
     p = tolower(p);
     cPtr = strchr(possibleValues, p);
-    switchedCase = true;
   }
   
   indexOfP = (int) (cPtr - possibleValues);
-  
-  if (switchedCase)
-  {
-    p = toupper(p);
-  }
   
   return indexOfP;
 }
