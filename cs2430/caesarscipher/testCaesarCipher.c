@@ -25,9 +25,10 @@ int main(int argv, char * argc[])
   if (argv != 4)
   {
     printf("usage: %s <command> <k> <message>\n", argc[0]);
+    printf("Caesar Cipher (encrypt: (p+k) mod 26, decrypt: (p-k) mod 26\n");
     printf("  command: must be either encrypt or decrypt\n");
     printf("  k: unsigned (positive) value used to shift alphabet per Caesar Cipher\n");
-    printf("  message: message to either encrypt or decrypt\n");
+    printf("  message: message to either encrypt or decrypt. This is p.\n");
     
     return 1;
   }
