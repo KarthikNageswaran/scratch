@@ -29,39 +29,26 @@ public class TestOverstockOutlook {
 //    6, // Inbox
 //    4, // Deleted Items
     FOLDERS_TO_CLEAN_OUT.put(11, "Crons");
-    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
+    FOLDERS_TO_CLEAN_OUT.put(12, "Deploys");
     FOLDERS_TO_CLEAN_OUT.put(13, "DevOps");
-    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
     FOLDERS_TO_CLEAN_OUT.put(14, "Jenkins");
-    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
     FOLDERS_TO_CLEAN_OUT.put(15, "Logwatch");
-    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
-    FOLDERS_TO_CLEAN_OUT.put(16, "Oh Nos");
-    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
+    FOLDERS_TO_CLEAN_OUT.put(16, "Oh No");
     FOLDERS_TO_CLEAN_OUT.put(17, "Performance");
-    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
     FOLDERS_TO_CLEAN_OUT.put(18, "Production Alerts");
-    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
     FOLDERS_TO_CLEAN_OUT.put(19, "Splunk");
-    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
     FOLDERS_TO_CLEAN_OUT.put(20, "Usage");
-    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
-    FOLDERS_TO_CLEAN_OUT.put(23, "Stage Alerts");
-    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
+    FOLDERS_TO_CLEAN_OUT.put(22, "Stage Alerts");
     FOLDERS_TO_CLEAN_OUT.put(24, "Hadoop");
-    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
+    FOLDERS_TO_CLEAN_OUT.put(27, "Otag");
+    FOLDERS_TO_CLEAN_OUT.put(28, "Solr Evictions");
     FOLDERS_TO_CLEAN_OUT.put(29, "Splunk");
-    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
     FOLDERS_TO_CLEAN_OUT.put(30, "Splunk Test249");
-    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
+    FOLDERS_TO_CLEAN_OUT.put(34, "B2C Order Monitor");
     FOLDERS_TO_CLEAN_OUT.put(80, "Jira");
-    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
     FOLDERS_TO_CLEAN_OUT.put(81, "spec processor");
-    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
     FOLDERS_TO_CLEAN_OUT.put(97, "Carrier Code Not Found");
-    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
     FOLDERS_TO_CLEAN_OUT.put(104, "Subversion");
-    FOLDERS_TO_CLEAN_OUT.put(4, "Deleted Items");
 //    31, // Stage Requests
 //    4 // Deleted Items
   }
@@ -194,9 +181,44 @@ public class TestOverstockOutlook {
 
                                 Thread.sleep(500);
 
+                                // Deleted Items Stuff
                                 try {
-                                  Alert javascriptAlert = driver.switchTo().alert();
-                                  javascriptAlert.accept();
+                                  new Select(driver.findElementByCssSelector("#selbrfld")).selectByIndex(4); // Deleted Items
+
+                                  final WebElement diGotoFolderLink = driver.findElementByCssSelector("#lnkGotoFldr");
+
+                                  if (diGotoFolderLink.isDisplayed()) {
+                                    diGotoFolderLink.click();
+
+                                    final List<WebElement> deletedItemsSelectedOptions = new Select(driver.findElementByCssSelector("#selbrfld")).getAllSelectedOptions();
+
+                                    if (deletedItemsSelectedOptions.size() == 1 && deletedItemsSelectedOptions.get(0).getAttribute("title").contains("Deleted Items")) {
+                                      do {
+                                        final WebElement diSelectAllCheckbox = driver
+                                            .findElementByCssSelector(".chd > input[title='Select All Items']");
+
+                                        if (diSelectAllCheckbox.isDisplayed()) {
+                                          diSelectAllCheckbox.click();
+
+                                          final WebElement dIDeleteButton = driver.findElementByCssSelector("#lnkHdrdelete");
+
+                                          if (dIDeleteButton.isDisplayed()) {
+                                            dIDeleteButton.click();
+
+                                            Thread.sleep(500);
+
+                                            Alert javascriptAlert = driver.switchTo().alert();
+                                            javascriptAlert.accept();
+
+                                            Thread.sleep(1000);
+
+                                            numRows = driver.findElementsByCssSelector(".lvw tbody tr").size();
+                                          }
+                                        }
+                                      }
+                                      while (numRows > 1 && numRows != 4 && numRows != 0);
+                                    }
+                                  }
                                 }
                                 catch (Exception e) {
                                   // Do nothing - no alert found.
@@ -212,6 +234,9 @@ public class TestOverstockOutlook {
                         }
 //                    }
                     }
+                  }
+                  else {
+                    System.out.println("Skipped folder, because it wasn't what was expected.");
                   }
 
                   Thread.sleep(3000);

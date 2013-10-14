@@ -25,6 +25,12 @@ int main(int argv, char * argc[])
   clock_t ticks;
   uint_fast64_t index;
   char * end;
+
+  if (argv != 2)
+  {
+    printf("Usage: %s <n>\n", argc[0]);
+    return 1;
+  }
   
   index = strtoull(argc[1], &end, 10);
   
