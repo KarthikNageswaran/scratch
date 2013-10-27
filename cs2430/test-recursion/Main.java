@@ -17,6 +17,13 @@ public class Main {
   }
 
   public static void main(String[] args) {
+    if (args.length != 1) {
+      System.out.println("Usage: java Main <n>");
+
+      return;
+    }
+
+
     final long index = Long.parseLong(args[0]);
     final long start = Calendar.getInstance().getTimeInMillis();
     

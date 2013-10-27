@@ -1,32 +1,17 @@
 package com.nathandelane.selenium.overstock;
 
 import org.junit.Test;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.interactions.Actions;
+
+import com.nathandelane.selenium.WebDriverFactory;
 
 public class TestOverstock {
 
   @Test
-  public void testOstk() throws InterruptedException {
-    final FirefoxDriver driver = new FirefoxDriver();
-    driver.get("http://www.overstock.com/");
+  public void testOstk() throws InterruptedException, NoSuchFieldException, SecurityException {
+    final LoginPage loginPage = new LoginPage();
+    loginPage.setSignInEmailAddress("somebody.somewhere@gmail.com");
 
-    System.out.println("Page title is: " + driver.getTitle());
-
-    final WebElement womensMenu = driver.findElementByCssSelector(".womensmenu");
-
-    System.out.println(womensMenu.isDisplayed());
-//    womensMenu.click();
-
-    final Actions builder = new Actions(driver);
-    builder.moveToElement(womensMenu).perform();
-
-    System.out.println("Page title is: " + driver.getTitle());
-
-    Thread.sleep(5000);
-
-    driver.quit();
+    WebDriverFactory.quit();
   }
 
 }
