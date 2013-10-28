@@ -74,13 +74,11 @@ int main(int argv, char * argc[])
     , (timeWhenPatientDies / 60.0)
   );
   printf(
-    "The antidote, which takes two hours to work, must be administered within two "
-    + "hours the colony reaching 1 million in size: %.2f minutes after infection\n"
+    "The antidote, which takes two hours to work, must be administered within two hours the colony reaching 1 million in size: %.2f minutes after infection\n"
     , maxAntidoteAdminTime
   );
   printf(
-    "That is it must be admiministered no later than %.2f hours (%i hrs, %i "
-    + "minutes, %i seconds) after infection, or the patient will die.\n"
+    "That is it must be admiministered no later than %.2f hours (%i hrs, %i minutes, %i seconds) after infection, or the patient will die.\n"
     , (maxAntidoteAdminTime / 60.0)
     , (long)maxTimeHours
     , (long)maxTimeMinutes
