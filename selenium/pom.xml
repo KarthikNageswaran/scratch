@@ -38,6 +38,6 @@
   	</dependencies>
   </dependencyManagement>
   <properties>
-  	<selenium-version>2.33.0</selenium-version>
+  	<selenium-version>2.39.0</selenium-version>
   </properties>
 </project>

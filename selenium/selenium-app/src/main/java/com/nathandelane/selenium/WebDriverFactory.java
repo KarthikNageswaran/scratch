@@ -1,6 +1,6 @@
 package com.nathandelane.selenium;
 
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 public final class WebDriverFactory {
@@ -11,7 +11,7 @@ public final class WebDriverFactory {
     if (INSTANCE == null) {
       synchronized(WebDriverFactory.class) {
         if (INSTANCE == null) {
-          INSTANCE = new FirefoxDriver();
+          INSTANCE = new ChromeDriver();
         }
       }
     }
