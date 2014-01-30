@@ -3,6 +3,7 @@ body {
   background-color: f;
   color: #0;
   font-size: 12pt;
+  background: #fff url('wiley_acme_logo.jpeg') no-repeat fixed top right;
 }
 
 h1 {
@@ -31,11 +32,11 @@ p {
 }
 
 #navigation {
-  width: 200px;
+  width: 18%;
   overflow: hidden;
-  float: left;
   text-align: left;
   padding: 180px 0 0 0;
+  float: left;
 }
 
 #navigation ul {
@@ -74,10 +75,10 @@ p {
 }
 
 #content {
-  width: 560px;
-  overflow: hidden;
-  margin: 0 auto;
+  width: 52%;
+  padding: 0 180px 0 0;
   text-align: left;
+  float: left;
 }
 
 #footer {
