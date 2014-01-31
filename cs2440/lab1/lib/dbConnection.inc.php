@@ -6,7 +6,7 @@
  * This file contains functions for opening and closing a connection.
  */
 
-require ('data/static.php');
+require ('data/static.inc.php');
 
 /**
  * getConnection

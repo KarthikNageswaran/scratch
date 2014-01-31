@@ -6,7 +6,7 @@
  * This is a library containing data access functions.
  */
 
-require ('dbConnection.php');
+require ('dbConnection.inc.php');
 
 $ADD_PERSON_QUERY = 'insert into people (first_name, last_name, date_created, date_updated) values (?, ?, now(), now())';
 $GET_PERSON_ID_QUERY = 'select ppl_id from people where first_name = ? and last_name = ?';

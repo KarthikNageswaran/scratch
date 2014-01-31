@@ -1,3 +1,5 @@
+<?php
+
 /**
  * Author: Nathan Lane
  * Class: cs2440-002 Spring 2014
@@ -26,3 +28,6 @@
  *  For an example go to http://csis02.slcc.edu/dhunter3/Index.htm
  */
 
+require ('../lib/contactDao.php');
+
+?>
