@@ -1,33 +1,24 @@
 -- Create tables to store data from form.
-create table `nathanlane`.`people` (
-  ppl_id integer not null auto_increment unique primary key comment 'SURROGATE KEY FOR PEOPLE TABLE'
-  , ppl_first_name varchar(30) not null comment 'PERSON''S FIRST NAME'
-  , ppl_last_name varchar(30) not null comment 'PERSON''S LAST NAME'
-  , ppl_date_created datetime not null comment 'DATE PERSON RECORD WAS CREATED'
-  , ppl_date_updated datetime not null comment 'DATE PERSON WAS LAST UPDATED'
-  , ppl_active tinyint(1) default 1 comment 'FLAG TO DEFINE WHETHER RECORD IS ACTIVE 1=TRUE, 0=FALSE'
-) ENGINE=INNODB;
-
 create table `nathanlane`.`states` (
   stt_code varchar(2) not null unique primary key comment '2-CHARACTER STATE CODE'
   , stt_name varchar(50) not null comment 'STATE NAME'
 ) ENGINE=INNODB;
 
-create table `nathanlane`.`contact_info` (
-  cti_id integer not null auto_increment unique primary key comment 'SURROGATE KEY FOR CONACT_INFO TABLE'
-  , cti_ppl_id integer not null comment 'FOREIGN KEY TO PEOPLE TABLE'
-  , cti_address1 varchar(32) not null comment 'ADDRESS LINE ONE'
-  , cti_address2 varchar(32) not null comment 'ADDRESS LINE TWO'
-  , cti_phone varchar(10) not null comment 'PHONE NUMBER IN FORMAT AAAPPPSSSS'
-  , cti_city varchar(45) not null comment 'CITY'
-  , cti_stt_code varchar(2) not null comment '2-CHARACTER STATE CODE'
-  , cti_zip_code varchar(10) not null comment 'FIVE-DIGIT OR NINE-DIGIT ZIP CODE WITH HYPHEN'
-  , cti_date_created datetime not null comment 'DATE CONACT_INFO RECORD WAS CREATED'
-  , cti_date_updated datetime not null comment 'DATE CONACT_INFO WAS LAST UPDATED'
-  , cti_active tinyint(1) default 1 comment 'FLAG TO DEFINE WHETHER RECORD IS ACTIVE 1=TRUE, 0=FALSE'
-  , FOREIGN KEY (cti_ppl_id) REFERENCES people(ppl_id) ON DELETE CASCADE
-  , FOREIGN KEY (cti_stt_code) REFERENCES states(stt_code) ON DELETE CASCADE
-  , CONSTRAINT UNIQUE INDEX (cti_ppl_id, cti_address1, cti_address2, cti_city, cti_stt_code, cti_zip_code)
+create table `nathanlane`.`people` (
+  ppl_id integer not null auto_increment unique primary key comment 'SURROGATE KEY FOR PEOPLE TABLE'
+  , ppl_first_name varchar(30) not null comment 'PERSON''S FIRST NAME'
+  , ppl_last_name varchar(30) not null comment 'PERSON''S LAST NAME'
+  , ppl_active tinyint(1) default 1 comment 'FLAG TO DEFINE WHETHER RECORD IS ACTIVE 1=TRUE, 0=FALSE'
+  , ppl_address1 varchar(32) not null comment 'ADDRESS LINE ONE'
+  , ppl_address2 varchar(32) not null comment 'ADDRESS LINE TWO'
+  , ppl_phone varchar(10) not null comment 'PHONE NUMBER IN FORMAT AAAPPPSSSS'
+  , ppl_city varchar(45) not null comment 'CITY'
+  , ppl_stt_code varchar(2) not null comment '2-CHARACTER STATE CODE'
+  , ppl_zip_code varchar(10) not null comment 'FIVE-DIGIT OR NINE-DIGIT ZIP CODE WITH HYPHEN'
+  , ppl_date_created datetime not null comment 'DATE CONACT_INFO RECORD WAS CREATED'
+  , ppl_date_updated datetime not null comment 'DATE CONACT_INFO WAS LAST UPDATED'
+  , FOREIGN KEY (ppl_stt_code) REFERENCES states(stt_code) ON DELETE CASCADE
+  , CONSTRAINT UNIQUE INDEX (ppl_first_name, ppl_last_name, ppl_address1, ppl_address2, ppl_city, ppl_stt_code, ppl_zip_code)
 ) ENGINE=INNODB;
 
 insert into `nathanlane`.`states` (stt_name, stt_code) values ('Alabama', 'AL');
