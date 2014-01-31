@@ -27,6 +27,7 @@ create table `nathanlane`.`contact_info` (
   , cti_active tinyint(1) default 1 comment 'FLAG TO DEFINE WHETHER RECORD IS ACTIVE 1=TRUE, 0=FALSE'
   , FOREIGN KEY (cti_ppl_id) REFERENCES people(ppl_id) ON DELETE CASCADE
   , FOREIGN KEY (cti_stt_code) REFERENCES states(stt_code) ON DELETE CASCADE
+  , CONSTRAINT UNIQUE INDEX (cti_ppl_id, cti_address1, cti_address2, cti_city, cti_stt_code, cti_zip_code)
 ) ENGINE=INNODB;
 
 insert into `nathanlane`.`states` (stt_name, stt_code) values ('Alabama', 'AL');
