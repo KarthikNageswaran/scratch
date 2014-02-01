@@ -31,3 +31,10 @@
 require (dirname(__FILE__) . '/_index.inc.php');
 
 ?>
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+  </body>
+</html>

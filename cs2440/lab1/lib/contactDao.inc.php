@@ -21,7 +21,7 @@ function addContact($firstName, $lastName, $phone, $addressLine1, $addressLine2,
   $connection = getConnection();
   $personId = 0;
   
-  if ($connection != null) {
+  if (isset($connection)) {
     $addPersonStatement = $connection->prepare($ADD_PERSON_QUERY);
     $addPersonStatement->bind_param('s', $firstName);
     $addPersonStatement->bind_param('s', $lastName);
