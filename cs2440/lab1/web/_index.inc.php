@@ -8,7 +8,7 @@
  * @author Nathan Lane
  */
 
-require ('../lib/contactDao.php');
+require (dirname(__FILE__) . '/../lib/contactDao.inc.php');
 
 define('FIRST_NAME_KEY', 'firstName');
 define('LAST_NAME_KEY', 'lastName');
@@ -55,7 +55,7 @@ function queryUser($firstName, $lastName, $phone, $addressLine1, $addressLine2, 
 function updateUser($firstName, $lastName, $phone, $addressLine1, $addressLine2, $city, $state, $zip) {
 }
 
-if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST') {
+if (isset($_SERVER['REQUEST_METHOD']) && strcmp(strtoupper($_SERVER['REQUEST_METHOD']), 'POST') == 0) {
   processPostBack();
 }
 

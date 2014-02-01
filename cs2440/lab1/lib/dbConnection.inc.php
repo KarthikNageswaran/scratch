@@ -6,7 +6,7 @@
  * This file contains functions for opening and closing a connection.
  */
 
-require ('data/static.inc.php');
+require (dirname(__FILE__) . '/data/static.inc.php');
 
 /**
  * getConnection
