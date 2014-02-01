@@ -28,6 +28,4 @@
  *  For an example go to http://csis02.slcc.edu/dhunter3/Index.htm
  */
 
-require ('../lib/contactDao.php');
-
 ?>
