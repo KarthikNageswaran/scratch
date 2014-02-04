@@ -80,9 +80,9 @@ insert into `nathanlane`.`states` (stt_name, stt_code) values ('Virgin Islands',
 insert into `nathanlane`.`states` (stt_name, stt_code) values ('Federated States of Micronesia', 'FM');
 insert into `nathanlane`.`states` (stt_name, stt_code) values ('Marshall Islands', 'MH');
 insert into `nathanlane`.`states` (stt_name, stt_code) values ('Palau', 'PW');
-insert into `nathanlane`.`states` (stt_name, stt_code) values ('U.S. Armed Forces – Americas', 'AA');
-insert into `nathanlane`.`states` (stt_name, stt_code) values ('U.S. Armed Forces – Europe', 'AE');
-insert into `nathanlane`.`states` (stt_name, stt_code) values ('U.S. Armed Forces – Pacific', 'AP');
+insert into `nathanlane`.`states` (stt_name, stt_code) values ('U.S. Armed Forces - Americas', 'AA');
+insert into `nathanlane`.`states` (stt_name, stt_code) values ('U.S. Armed Forces - Europe', 'AE');
+insert into `nathanlane`.`states` (stt_name, stt_code) values ('U.S. Armed Forces - Pacific', 'AP');
 insert into `nathanlane`.`states` (stt_name, stt_code) values ('Northern Mariana Islands', 'CM');
 insert into `nathanlane`.`states` (stt_name, stt_code) values ('Panama Canal Zone', 'CZ');
 insert into `nathanlane`.`states` (stt_name, stt_code) values ('Nebraska', 'NB');

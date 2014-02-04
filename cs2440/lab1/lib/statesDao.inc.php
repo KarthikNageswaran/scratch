@@ -10,7 +10,7 @@
 
 require_once (dirname(__FILE__) . '/dbConnection.inc.php');
 
-define('GET_STATES_QUERY', 'select stt_code, stt_name from states');
+define('GET_STATES_QUERY', 'select stt_code, stt_name from states order by stt_code asc');
 
 function queryStates() {
   $connection = getConnection();
