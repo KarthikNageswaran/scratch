@@ -37,19 +37,34 @@ require (dirname(__FILE__) . '/_index.inc.php');
   </head>
   <body>
     <div id="root">
-      <select id="state" name="state">
+      <form id="contactForm" name="contactForm" method="post" action="index.php">
+        <fieldset>
+          <input name="firstName" id="firstName" maxlength="30" />
+          <input name="lastName" id="lastName" maxlength="30" />
+        </fieldset>
+        <fieldset>
+          <input name="phone" id="phone" maxlength="10" />
+        </fieldset>
+        <fieldset>
+          <input name="addressLine1" id="addressLine1" maxlength="32" />
+          <input name="addressLine2" id="addressLine2" maxlength="32" />
+          <input name="city" id="city" maxlength="45" />
+          <select id="state" name="state">
 <?php
 
 foreach ($states as $stateName => $stateCode) {
 
 ?>
-        <option value="<?php echo "$stateCode"; ?>"><?php echo "$stateName"; ?></option>
+            <option value="<?php echo "$stateCode"; ?>"><?php echo "$stateName"; ?></option>
 <?php
 
 }
 
 ?>
-      </select>
+          </select>
+          <input name="zip" id="zip" maxlength="10" />
+        </fieldset>
+      </form>
     </div>
   </body>
 </html>
