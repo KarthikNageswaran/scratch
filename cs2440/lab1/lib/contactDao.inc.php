@@ -6,16 +6,14 @@
  * This is a library containing data access functions.
  */
 
-require (dirname(__FILE__) . '/dbConnection.inc.php');
+require_once (dirname(__FILE__) . '/dbConnection.inc.php');
 
-$ADD_PERSON_QUERY = 'insert into people (first_name, last_name, date_created, date_updated) values (?, ?, now(), now())';
-$GET_PERSON_ID_QUERY = 'select ppl_id from people where first_name = ? and last_name = ?';
-$ADD_CONTACT_INFO_QUERY = 'insert into contact_info (cti_ppl_id, cti_address1, cti_address2, cti_phone, cti_city, cti_stt_code, cti_zip_code, cti_date_created, cti_date_updated) values (?, ?, ?, ?, ?, ?, ?, ?, now(), now())';
+$ADD_PERSON_QUERY = 'insert into people (ppl_first_name, ppl_last_name, ppl_active, ppl_address1, ppl_address2, ppl_phone, ppl_city, ppl_stt_code, ppl_zip_code, ppl_date_created, ppl_date_updated) values (?, ?, ?, ?, ?, ?, ?, ?, ?, now(), now())';
 $DELETE_CONTACT_INFO_QUERY = 'update contact_info set cti_active = 0 where cti_id = ?';
 $DELETE_PERSON_QUERY = 'update people set ppl_active = 0 where ppl_id = ?';
 
 /**
- *
+ * Adds a new contact.
  */
 function addContact($firstName, $lastName, $phone, $addressLine1, $addressLine2, $city, $state, $zip) {
   $connection = getConnection();
@@ -25,27 +23,18 @@ function addContact($firstName, $lastName, $phone, $addressLine1, $addressLine2,
     $addPersonStatement = $connection->prepare($ADD_PERSON_QUERY);
     $addPersonStatement->bind_param('s', $firstName);
     $addPersonStatement->bind_param('s', $lastName);
+    $addPersonStatement->bind_param('s', $personId);
+    $addPersonStatement->bind_param('s', $addressLine1);
+    $addPersonStatement->bind_param('s', $addressLine2);
+    $addPersonStatement->bind_param('s', $phone);
+    $addPersonStatement->bind_param('s', $city);
+    $addPersonStatement->bind_param('s', $state);
+    $addPersonStatement->bind_param('s', $zip);   
     $addPersonStatement->execute();
+
+    $personId = $connection->insert_id;
+
     $addPersonStatement->free_result();
-
-    $getPersonIdStatement = $connection->prepare($GET_PERSON_ID_QUERY);
-    $getPersonIdStatement->bind_param('s', $firstName);
-    $getPersonIdStatement->bind_param('s', $lastName);
-    $getPersonIdStatement->execute();
-    $getPersonIdStatement->bind_result($personId);
-
-    while ($getPersonIdStatement->fetch()) {
-      $addContactInfoStement = $connection->prepare($ADD_CONTACT_INFO_QUERY);
-      $addContactInfoStement->bind_param('s', $personId);
-      $addContactInfoStement->bind_param('s', $addressLine1);
-      $addContactInfoStement->bind_param('s', $addressLine2);
-      $addContactInfoStement->bind_param('s', $phone);
-      $addContactInfoStement->bind_param('s', $city);
-      $addContactInfoStement->bind_param('s', $state);
-      $addContactInfoStement->bind_param('s', $zip);   
-      $addContactInfoStement->execute();
-      $addContactInfoStement->free_result();
-    }
 
     closeConnection  ($connection);
   }

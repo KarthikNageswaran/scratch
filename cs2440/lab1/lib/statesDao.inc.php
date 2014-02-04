@@ -8,16 +8,32 @@
  * @author Nathan Lane
  */
 
-require (dirname(__FILE__) . '/dbConnection.inc.php');
+require_once (dirname(__FILE__) . '/dbConnection.inc.php');
 
-$GET_STATES_QUERY = 'select stt_code, stt_name from states';
+define('GET_STATES_QUERY', 'select stt_code, stt_name from states');
 
 function queryStates() {
   $connection = getConnection();
+  $statesArray = array();
 
   if (isset($connection)) {
+    $stateCode = '';
+    $stateName = '';
+    $statesStatement = $connection->prepare(GET_STATES_QUERY);
+    $statesStatement->execute();
+
+    $statesStatement->bind_result($stateCode, $stateName);
+
+    while ($statesStatement->fetch()) {
+      $statesArray[$stateName] = $stateCode;
+    }
+
+    $statesStatement->free_result();
+
     closeConnection($connection);
   }
+
+  return $statesArray;
 }
 
 ?>

@@ -36,5 +36,20 @@ require (dirname(__FILE__) . '/_index.inc.php');
   <head>
   </head>
   <body>
+    <div id="root">
+      <select id="state" name="state">
+<?php
+
+foreach ($states as $stateName => $stateCode) {
+
+?>
+        <option value="<?php echo "$stateCode"; ?>"><?php echo "$stateName"; ?></option>
+<?php
+
+}
+
+?>
+      </select>
+    </div>
   </body>
 </html>

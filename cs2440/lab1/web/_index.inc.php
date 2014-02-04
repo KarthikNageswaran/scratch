@@ -8,6 +8,7 @@
  * @author Nathan Lane
  */
 
+require (dirname(__FILE__) . '/../lib/statesDao.inc.php');
 require (dirname(__FILE__) . '/../lib/contactDao.inc.php');
 
 define('FIRST_NAME_KEY', 'firstName');
@@ -22,6 +23,8 @@ define('SUBMIT_BUTTON_KEY', 'actionButton');
 define('CREATE_BUTTON_VALUE', 'createContact');
 define('UPDATE_BUTTON_VALUE', 'updateContact');
 define('SEARCH_BUTTON_VALUE', 'searchContacts');
+
+$states = queryStates();
 
 function processPostBack() {
   if (defined($_POST[SUBMIT_BUTTON_KEY])) {
