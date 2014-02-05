@@ -1,0 +1,78 @@
+<?php
+
+/**
+ * Author: Nathan Lane
+ * Class: cs2440-002 Spring 2014
+ * Description:
+ *   PHP and MySQL Lab1
+ *
+ *   Address book and contact page
+ *
+ *   Tasks to Complete:
+ *   - Create a form page with input for:
+ *     - First name
+ *     - Last name
+ *     - Phone
+ *     - Address
+ *     - City
+ *     - State (should be a drop-down list)
+ *     - ZIP code
+ *   - Create a button for update/create/search
+ *     - These buttons will lead the form to a 
+ *       response page (named what you wish)
+ *   - Create a response page that will:
+ *     - Display the search results
+ *     - Update a record
+ *     - Create a new record
+ *
+ *  For an example go to http://csis02.slcc.edu/dhunter3/Index.htm
+ */
+
+require (dirname(__FILE__) . '/_index.inc.php');
+
+?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type"/>
+    <title>Contact Book | Nathan Lane CSIS-2440-002-Sp14</title>
+  </head>
+  <body>
+    <div id="root">
+      <div id="formContainer">
+        <form id="contactForm" name="contactForm" method="post" action="index.php">
+          <fieldset>
+            <label for="firstName">First Name:</label>
+            <input name="firstName" id="firstName" maxlength="30" />
+            <label for="lastName">Last Name:</label>
+            <input name="lastName" id="lastName" maxlength="30" />
+          </fieldset>
+          <fieldset>
+            <label for="phone">Phone Number:</label>
+            <input name="phone" id="phone" maxlength="10" />
+          </fieldset>
+          <fieldset>
+            <label for="addressLine1">Address Line 1:</label>
+            <input name="addressLine1" id="addressLine1" maxlength="32" />
+            <label for="addressLine2">Address Line 2:</label>
+            <input name="addressLine2" id="addressLine2" maxlength="32" />
+            <label for="city">City:</label>
+            <input name="city" id="city" maxlength="45" />
+            <label for="state">State:</label>
+            <select id="state" name="state">
+              <option value="">-- Select State --</option>
+              <option value="UT">Utah</option>
+            </select>
+            <label for="zip">ZIP Code:</label>
+            <input name="zip" id="zip" maxlength="10" />
+          </fieldset>
+          <fieldset>
+            <input type="button" name="submitButton" id="createButton" value="Create Contact"/>
+            <input type="button" name="submitButton" id="searchButton" value="Search Contacts"/>
+            <input type="button" name="submitButton" id="updateButton" value="Update Contact"/>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
