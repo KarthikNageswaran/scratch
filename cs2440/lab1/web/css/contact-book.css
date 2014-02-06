@@ -33,6 +33,12 @@ input
   width: 300px;
 }
 
+th
+{
+  font-size: 11px;
+  text-align: center;
+}
+
 #formContainer
 {
   border-width: 1px;
@@ -41,6 +47,22 @@ input
   width: 600px;
   text-align: center;
   margin: 0 auto;
+}
+
+#resultsContainer
+{
+  border-width: 1px;
+  border-style: solid;
+  border-color: #0f73ff;
+  width: 600px;
+  text-align: center;
+  margin: 30px auto;
+}
+
+#searchResultsTable
+{
+  text-align: left;
+  width: 100%;
 }
 
 #createButton,
