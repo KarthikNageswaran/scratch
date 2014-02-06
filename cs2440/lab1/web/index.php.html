@@ -37,6 +37,7 @@ require (dirname(__FILE__) . '/_index.inc.php');
     <meta content="text/html; charset=utf-8" http-equiv="content-type"/>
     <title>Contact Book | Nathan Lane CSIS-2440-002-Sp14</title>
     <link rel="stylesheet" href="css/contact-book.css" />
+    <script type="text/javascript" src="js/contact-book.js"></script>
   </head>
   <body>
     <div id="root">
