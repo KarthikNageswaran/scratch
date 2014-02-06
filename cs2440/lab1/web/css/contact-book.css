@@ -1,0 +1,46 @@
+form
+{
+  text-align: left;
+}
+
+fieldset
+{
+  border: 0;
+}
+
+label
+{
+  float: left;
+  padding-right: 10px;
+  text-align: right;
+  width: 250px;
+}
+
+input
+{
+  float: left;
+  width: 300px;
+}
+
+input:focus
+{
+  background-color: #f0ff7e;
+}
+
+#formContainer
+{
+  border-width: 1px;
+  border-style: solid;
+  border-color: #0f73ff;
+  width: 600px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+#createButton,
+#searchButton,
+#updateButton 
+{
+  display: inline;
+  width: auto;
+}
