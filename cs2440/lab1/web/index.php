@@ -43,6 +43,9 @@ require (dirname(__FILE__) . '/_index.inc.php');
     <div id="root">
       <form id="contactForm" name="contactForm" method="post" action="index.php">
         <fieldset>
+          <span class="validationMessage">These fields are required to create a new contact.</span>
+        </fieldset>
+        <fieldset>
           <input name="firstName" id="firstName" maxlength="30" />
           <input name="lastName" id="lastName" maxlength="30" />
         </fieldset>

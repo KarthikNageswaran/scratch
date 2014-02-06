@@ -1,3 +1,14 @@
+body
+{
+  font-family: serif;
+  font-size: 12pt;
+  color: #000;
+  background-color: #fff;
+  margin: 10px 0 0;
+  padding: 0;
+  text-align: center;
+}
+
 form
 {
   text-align: left;
@@ -22,11 +33,6 @@ input
   width: 300px;
 }
 
-input:focus
-{
-  background-color: #f0ff7e;
-}
-
 #formContainer
 {
   border-width: 1px;
@@ -43,4 +49,15 @@ input:focus
 {
   display: inline;
   width: auto;
+}
+
+.validationMessage
+{
+  font-size: 10pt;
+  color: #800;
+}
+
+.requiredField
+{
+  color: #800;
 }

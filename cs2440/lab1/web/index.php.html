@@ -42,30 +42,34 @@ require (dirname(__FILE__) . '/_index.inc.php');
   <body>
     <div id="root">
       <div id="formContainer">
+        <h1>Contact Book</h1>
         <form id="contactForm" name="contactForm" method="post" action="index.php">
           <fieldset>
-            <label for="firstName">First Name:</label>
+            <span class="validationMessage">These fields are required to create a new contact.</span>
+          </fieldset>
+          <fieldset>
+            <label class="requiredField" for="firstName">First Name:</label>
             <input name="firstName" id="firstName" maxlength="30" />
-            <label for="lastName">Last Name:</label>
+            <label class="requiredField" for="lastName">Last Name:</label>
             <input name="lastName" id="lastName" maxlength="30" />
           </fieldset>
           <fieldset>
-            <label for="phone">Phone Number:</label>
+            <label class="requiredField" for="phone">Phone Number:</label>
             <input name="phone" id="phone" maxlength="10" />
           </fieldset>
           <fieldset>
-            <label for="addressLine1">Address Line 1:</label>
+            <label class="requiredField" for="addressLine1">Address Line 1:</label>
             <input name="addressLine1" id="addressLine1" maxlength="32" />
             <label for="addressLine2">Address Line 2:</label>
             <input name="addressLine2" id="addressLine2" maxlength="32" />
-            <label for="city">City:</label>
+            <label class="requiredField" for="city">City:</label>
             <input name="city" id="city" maxlength="45" />
-            <label for="state">State:</label>
+            <label class="requiredField" for="state">State:</label>
             <select id="state" name="state">
               <option value="">-- Select State --</option>
               <option value="UT">Utah</option>
             </select>
-            <label for="zip">ZIP Code:</label>
+            <label class="requiredField" for="zip">ZIP Code:</label>
             <input name="zip" id="zip" maxlength="10" />
           </fieldset>
           <fieldset>
