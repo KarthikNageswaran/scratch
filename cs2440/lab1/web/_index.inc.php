@@ -1,7 +1,7 @@
 <?php
 
 /**
- * _index.php
+ * _index.inc.php
  *
  * This is the code-behind for the index page.
  *
@@ -19,15 +19,25 @@ define('ADDRESS_LINE2_KEY', 'addressLine2');
 define('CITY_KEY', 'city');
 define('STATE_KEY', 'state');
 define('ZIP_KEY', 'zip');
-define('SUBMIT_BUTTON_KEY', 'actionButton');
-define('CREATE_BUTTON_VALUE', 'createContact');
-define('UPDATE_BUTTON_VALUE', 'updateContact');
-define('SEARCH_BUTTON_VALUE', 'searchContacts');
+define('SUBMIT_BUTTON_KEY', 'submitButton');
+define('CREATE_BUTTON_VALUE', 'Create Contact');
+define('UPDATE_BUTTON_VALUE', 'Update Contact');
+define('SEARCH_BUTTON_VALUE', 'Search Contacts');
 
 $states = queryStates();
 
+function createNewUser($firstName, $lastName, $phone, $addressLine1, $addressLine2, $city, $state, $zip) {
+  addContact($firstName, $lastName, $phone, $addressLine1, $addressLine2, $city, $state, $zip);
+}
+
+function queryUser($firstName, $lastName, $phone, $addressLine1, $addressLine2, $city, $state, $zip) {
+}
+
+function updateUser($firstName, $lastName, $phone, $addressLine1, $addressLine2, $city, $state, $zip) {
+}
+
 function processPostBack() {
-  if (defined($_POST[SUBMIT_BUTTON_KEY])) {
+  if (isset($_POST[SUBMIT_BUTTON_KEY])) {
     $firstName = $_POST[FIRST_NAME_KEY];
     $lastName = $_POST[LAST_NAME_KEY];
     $phone = $_POST[PHONE_KEY];
@@ -49,16 +59,7 @@ function processPostBack() {
   }
 }
 
-function createNewUser($firstName, $lastName, $phone, $addressLine1, $addressLine2, $city, $state, $zip) {
-}
-
-function queryUser($firstName, $lastName, $phone, $addressLine1, $addressLine2, $city, $state, $zip) {
-}
-
-function updateUser($firstName, $lastName, $phone, $addressLine1, $addressLine2, $city, $state, $zip) {
-}
-
-if (isset($_SERVER['REQUEST_METHOD']) && strcmp(strtoupper($_SERVER['REQUEST_METHOD']), 'POST') == 0) {
+if (isset($_POST)) {
   processPostBack();
 }
 
