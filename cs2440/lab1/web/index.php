@@ -73,5 +73,23 @@ foreach ($states as $stateName => $stateCode) {
         </fieldset>
       </form>
     </div>
+    <div id="noJavascriptCovering">
+      <div class="message">
+        <h1>This Site Requires JavaScript to be Enabled</h1>
+        <p>
+          This website uses modern web technologies, including CSS3, and JavaScript, which are required 
+          to make it perform and operate as expected.
+        </p>
+        <p>
+          Please enable JavaScript on your browser.
+        </p>
+        <p>
+          If you are unsure how to enable JavaScript on your browser please consult your browser vendor's documentation - usually there is a website for your browser, or google "how to turn on JavaSCript in <browser-name>."
+        </p>
+        <p>
+          Thank you.
+        </p>
+      </div>
+    </div>
   </body>
 </html>

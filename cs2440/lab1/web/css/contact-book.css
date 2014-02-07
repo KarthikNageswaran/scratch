@@ -39,6 +39,29 @@ th
   text-align: center;
 }
 
+#noJavascriptCovering
+{
+  width: 100%;
+  min-height: 100%;
+  height: auto;
+  background-color: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+#noJavascriptCovering .message
+{
+  width: 800px;
+  overflow: hidden;
+  padding: 20px;
+  background-color: rgba(80, 0, 0, 0.85);
+  text-align: left;
+  margin: 80px auto;
+}
+
 #formContainer
 {
   border-width: 1px;
