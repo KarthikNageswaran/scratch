@@ -4,7 +4,7 @@ body
   font-size: 12pt;
   color: #000;
   background-color: #fff;
-  margin: 10px 0 0;
+  margin: 0;
   padding: 0;
   text-align: center;
 }
@@ -67,6 +67,11 @@ th
   margin: 80px auto;
 }
 
+#root
+{
+  padding: 10px 0 0;
+}
+
 #formContainer
 {
   border-width: 1px;
@@ -112,29 +117,31 @@ th
   color: #800;
 }
 
-.fail
-{
-  width: 100%;
-  padding: 5px 0;
-  background-color: #f00;
-  color: #f55;
-  text-align: center;
-}
-
-.success
-{
-  width: 100%;
-  padding: 5px 0;
-  background-color: #092;
-  color: #9e8;
-  text-align: center;
-}
-
+.fail,
+.success,
 .info
 {
   width: 100%;
   padding: 5px 0;
+  text-align: center;
+  font-weight: bold;
+}
+
+.fail
+{
+  background-color: #f00;
+  color: #f77;
+}
+
+.success
+{
+  background-color: #092;
+  color: #9e8;
+}
+
+.info
+{
   background-color: #06e;
   color: #9be;
-  text-align: center;
 }
+
