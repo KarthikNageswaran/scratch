@@ -73,9 +73,9 @@ require (dirname(__FILE__) . '/_index.inc.php');
             <input name="zip" id="zip" maxlength="10" />
           </fieldset>
           <fieldset>
-            <input type="button" name="submitButton" id="createButton" value="Create Contact"/>
-            <input type="button" name="submitButton" id="searchButton" value="Search Contacts"/>
-            <input type="button" name="submitButton" id="updateButton" value="Update Contact"/>
+            <input type="submit" name="submitButton" id="createButton" value="Create Contact" onsubmit="return validateFormForCreation()"/>
+            <input type="submit" name="submitButton" id="searchButton" value="Search Contacts" onsubmit="return validateFormForSearch()"/>
+            <input type="submit" name="submitButton" id="updateButton" value="Update Contact" onsubmit="return validateFormForUpdate()"/>
           </fieldset>
         </form>
       </div>
@@ -87,6 +87,7 @@ require (dirname(__FILE__) . '/_index.inc.php');
               <th>Last Name</th>
               <th>City</th>
               <th>ZIP Code</th>
+              <th></th>
             </tr>
           </thead>
         </table>
@@ -95,7 +96,10 @@ require (dirname(__FILE__) . '/_index.inc.php');
     <noscript>
       <div id="noJavascriptCovering">
         <div class="message">
-          <h1>This Site Requires JavaScript to be Enabled</h1>
+          <h1>What! No JavaScript?</h1>
+          <p>
+            This website requires JavaScript to be enabled in your browser.
+          </p>
           <p>
             This website uses modern web technologies, including CSS3, and JavaScript, which are required 
             to make it perform and operate as expected.
@@ -104,7 +108,8 @@ require (dirname(__FILE__) . '/_index.inc.php');
             Please enable JavaScript on your browser.
           </p>
           <p>
-            If you are unsure how to enable JavaScript on your browser please consult your browser vendor's documentation - usually there is a website for your browser, or google "how to turn on JavaSCript in <browser-name>."
+            If you are unsure how to enable JavaScript on your browser please consult your browser vendor's
+            documentation - usually there is a website for your browser, or google "how to turn on JavaScript in <browser-name>."
           </p>
           <p>
             Thank you.
@@ -112,5 +117,18 @@ require (dirname(__FILE__) . '/_index.inc.php');
         </div>
       </div>
     </noscript>
+    <script type="text/javascript">
+      function validateFormForCreation() {
+        return true;
+      }
+
+      function validateFormForSearch() {
+        return true;
+      }
+
+      function validateFormForUpdate() {
+        return true;
+      }
+    </script>
   </body>
 </html>
