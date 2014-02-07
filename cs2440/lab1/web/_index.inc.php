@@ -1,11 +1,11 @@
 <?php
 
 /**
- * _index.inc.php
- *
- * This is the code-behind for the index page.
- *
- * @author Nathan Lane
+ * Author: Nathan Lane
+ * Class: cs2440-002 Spring 2014
+ * Description:
+ * Name: _index.inc.php
+ *   This is the code-behind for the index page.
  */
 
 require (dirname(__FILE__) . '/../lib/statesDao.inc.php');
@@ -27,10 +27,16 @@ define('SEARCH_BUTTON_VALUE', 'Search Contacts');
 $states = queryStates();
 $queryResults;
 
+/**
+ * Creates a new contact record.
+ */
 function createNewPerson($firstName, $lastName, $phone, $addressLine1, $addressLine2, $city, $state, $zip) {
   addContact($firstName, $lastName, $phone, $addressLine1, $addressLine2, $city, $state, $zip);
 }
 
+/**
+ * Queries contact records that match the given criteria.
+ */
 function queryPerson($firstName, $lastName, $phone, $addressLine1, $addressLine2, $city, $state, $zip) {
   return queryContact($firstName, $lastName, $phone, $addressLine1, $addressLine2, $city, $state, $zip);
 }
@@ -39,6 +45,9 @@ function updatePerson($pplId, $firstName, $lastName, $phone, $addressLine1, $add
   updateContact($pplId, $firstName, $lastName, $phone, $addressLine1, $addressLine2, $city, $state, $zip);
 }
 
+/**
+ * Parses the post-back request, and dispatches the correct method.
+ */
 function processPostBack() {
   if (isset($_POST[SUBMIT_BUTTON_KEY])) {
     $firstName = $_POST[FIRST_NAME_KEY];
@@ -62,6 +71,7 @@ function processPostBack() {
   }
 }
 
+/* Entry point */
 if (isset($_POST)) {
   $queryResults = processPostBack();
 }

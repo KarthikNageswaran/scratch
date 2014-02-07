@@ -28,10 +28,6 @@
  *  For an example go to http://csis02.slcc.edu/dhunter3/Index.htm
  */
 
-require_once (dirname(__FILE__) . '/_index.inc.php');
-
-global $queryResults;
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -42,6 +38,13 @@ global $queryResults;
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   </head>
   <body>
+<?php
+
+require_once (dirname(__FILE__) . '/_index.inc.php');
+
+global $queryResults;
+
+?>
     <div id="root">
       <div id="formContainer">
         <h1>Contact Book</h1>

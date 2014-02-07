@@ -1,17 +1,20 @@
 <?php
 
 /**
- * statesDao.inc.php
- *
- * Data access object used to retrieve states from the database.
- *
- * @author Nathan Lane
+ * Author: Nathan Lane
+ * Class: CSIS-2440-002
+ * Description:
+ * Name: statesDao.inc.php
+ *   Data access object used to retrieve states from the database.
  */
 
 require_once (dirname(__FILE__) . '/dbConnection.inc.php');
 
 define('GET_STATES_QUERY', 'select stt_code, stt_name from states order by stt_code asc');
 
+/**
+ * Query all states - names and state abbreviations - from the database.
+ */
 function queryStates() {
   $connection = getConnection();
   $statesArray = array();

@@ -1,9 +1,11 @@
 <?php
 
 /**
- * contactDao.inc.php
- *
- * This is a library containing data access functions.
+ * Author: Nathan Lane
+ * Class: CSIS-2440-002
+ * Description:
+ * Name: contactDao.inc.php
+ *   This is a script containing Data Access functions for manipulating contacts.
  */
 
 require_once (dirname(__FILE__) . '/dbConnection.inc.php');
@@ -36,9 +38,9 @@ function addContact($firstName, $lastName, $phone, $addressLine1, $addressLine2,
     $personId = $connection->insert_id;
 
     if ($personId == 0) {
-      echo "Failure Updating Record";
+      echo "<div class=\"fail\">Failure adding record.</div>";
     } else {
-      echo "Success";
+      echo "<div class=\"success\">Successfully added record.</div>";
     }
 
     $addPersonStatement->free_result();
@@ -55,62 +57,24 @@ function addContact($firstName, $lastName, $phone, $addressLine1, $addressLine2,
 function queryContact($firstName, $lastName, $phone, $addressLine1, $addressLine2, $city, $state, $zip) {
   $connection = getConnection();
   $whereClause = '';
-  $requiresAndIfMoreWheres = false;
   $searchResults = array();
 
   if (isset($connection)) {
-    if (isset($firstName)) {
-      $whereClause .= "ppl_first_name like '%" . $connection->escape_string($firstName) . "%'";
-      $requiresAndIfMoreWheres = true;
-    }
-    if (isset($lastName)) {
-      if ($requiresAndIfMoreWheres) {
-        $whereClause .= " and ";
-      }
-      $whereClause .= "ppl_last_name like '%" . $connection->escape_string($lastName) . "%'";
-      $requiresAndIfMoreWheres = true;
-    }
-    if (isset($phone)) {
-      if ($requiresAndIfMoreWheres) {
-        $whereClause .= " and ";
-      }
-      $whereClause .= "ppl_phone like '%" . $connection->escape_string($phone) . "%'";
-      $requiresAndIfMoreWheres = true;
-    }
-    if (isset($addressLine1)) {
-      if ($requiresAndIfMoreWheres) {
-        $whereClause .= " and ";
-      }
-      $whereClause .= "ppl_address1 like '%" . $connection->escape_string($addressLine1) . "%'";
-      $requiresAndIfMoreWheres = true;
-    }
-    if (isset($addressLine2)) {
-      if ($requiresAndIfMoreWheres) {
-        $whereClause .= " and ";
-      }
-      $whereClause .= "ppl_address2 like '%" . $connection->escape_string($addressLine2) . "%'";
-      $requiresAndIfMoreWheres = true;
-    }
-    if (isset($city)) {
-      if ($requiresAndIfMoreWheres) {
-        $whereClause .= " and ";
-      }
-      $whereClause .= "ppl_city like '%" . $connection->escape_string($city) . "%'";
-      $requiresAndIfMoreWheres = true;
-    }
-    if (isset($state)) {
-      if ($requiresAndIfMoreWheres) {
-        $whereClause .= " and ";
-      }
-      $whereClause .= "ppl_stt_code like '%" . $connection->escape_string($state) . "%'";
-      $requiresAndIfMoreWheres = true;
-    }
-    if (isset($zip)) {
-      if ($requiresAndIfMoreWheres) {
-        $whereClause .= " and ";
-      }
-      $whereClause .= "ppl_zip_code like '%" . $connection->escape_string($zip) . "%'";
-    }
+    $whereClause .= "ppl_first_name like '%" . $connection->escape_string($firstName) . "%'";
+    $whereClause .= " and ";
+    $whereClause .= "ppl_last_name like '%" . $connection->escape_string($lastName) . "%'";
+    $whereClause .= " and ";
+    $whereClause .= "ppl_phone like '%" . $connection->escape_string($phone) . "%'";
+    $whereClause .= " and ";
+    $whereClause .= "ppl_address1 like '%" . $connection->escape_string($addressLine1) . "%'";
+    $whereClause .= " and ";
+    $whereClause .= "ppl_address2 like '%" . $connection->escape_string($addressLine2) . "%'";
+    $whereClause .= " and ";
+    $whereClause .= "ppl_city like '%" . $connection->escape_string($city) . "%'";
+    $whereClause .= " and ";
+    $whereClause .= "ppl_stt_code like '%" . $connection->escape_string($state) . "%'";
+    $whereClause .= " and ";
+    $whereClause .= "ppl_zip_code like '%" . $connection->escape_string($zip) . "%'";
 
     $query = SEARCH_PERSON_QUERY.$whereClause;
     $result = $connection->query($query);
@@ -131,12 +95,19 @@ function queryContact($firstName, $lastName, $phone, $addressLine1, $addressLine
 
     $result->free();
 
+    if (count($searchResults) == 0) {
+      echo "<div class=\"info\">No records found matching criteria.</div>";
+    }
+
     closeConnection($connection);
   }
 
   return $searchResults;
 }
 
+/**
+ * This function updates an existing contact.
+ */
 function updateContact($pplId, $firstName, $lastName, $phone, $addressLine1, $addressLine2, $city, $state, $zip) {
   $connection = getConnection();
   $affectedRows = 0;
@@ -159,9 +130,9 @@ function updateContact($pplId, $firstName, $lastName, $phone, $addressLine1, $ad
     $affectedRows = $connection->affected_rows;
 
     if ($affectedRows == -1) {
-      echo "Failure Updating Record";
+      echo "<div class=\"fail\">Failure updating record.</div>";
     } else {
-      echo "Success";
+      echo "<div class=\"success\">Successfully updated record.</div>";
     }
 
     $updatePersonStatement->free_result();
