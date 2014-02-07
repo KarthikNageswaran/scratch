@@ -1,8 +1,8 @@
 <?php
 
-$dbCredentials = array(
+static $dbCredentials = array(
   'userName' => 'nathanlane',
-  'password' => '000000',
+  'password' => 'i78y6zbgfhla',
   'hostName' => 'localhost',
   'dbName' => 'nathanlane'
 );

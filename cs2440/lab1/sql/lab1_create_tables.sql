@@ -18,7 +18,7 @@ create table `nathanlane`.`people` (
   , ppl_date_created datetime not null comment 'DATE CONACT_INFO RECORD WAS CREATED'
   , ppl_date_updated datetime not null comment 'DATE CONACT_INFO WAS LAST UPDATED'
   , FOREIGN KEY (ppl_stt_code) REFERENCES states(stt_code) ON DELETE CASCADE
-  , CONSTRAINT UNIQUE INDEX (ppl_first_name, ppl_last_name, ppl_address1, ppl_address2, ppl_city, ppl_stt_code, ppl_zip_code)
+  , CONSTRAINT UNIQUE INDEX (ppl_first_name, ppl_last_name, ppl_address1, ppl_address2, ppl_phone, ppl_city, ppl_stt_code, ppl_zip_code)
 ) ENGINE=INNODB;
 
 insert into `nathanlane`.`states` (stt_name, stt_code) values ('Alabama', 'AL');

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * dbConnection.php
+ * dbConnection.inc.php
  *
  * This file contains functions for opening and closing a connection.
  */
 
-require (dirname(__FILE__) . '/data/static.inc.php');
+require_once(dirname(__FILE__) . '/data/static.inc.php');
 
 /**
  * getConnection
@@ -14,7 +14,9 @@ require (dirname(__FILE__) . '/data/static.inc.php');
  * Returns a new mysqli object.
  **/
 function getConnection() {
-  $connection = new mysqli('localhost', 'root', 'i78y6zbgfhla', 'nathanlane');
+  global $dbCredentials;
+
+  $connection = new mysqli($dbCredentials['hostName'], $dbCredentials['userName'], $dbCredentials['password'], $dbCredentials['dbName']);
 
   return $connection;
 }

@@ -30,6 +30,8 @@
 
 require_once (dirname(__FILE__) . '/_index.inc.php');
 
+global $queryResults;
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,35 +40,36 @@ require_once (dirname(__FILE__) . '/_index.inc.php');
     <title>Contact Book | Nathan Lane CSIS-2440-002-Sp14</title>
     <link rel="stylesheet" href="css/contact-book.css" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script type="text/javascript" src="js/contact-book.js"></script>
   </head>
   <body>
     <div id="root">
       <div id="formContainer">
         <h1>Contact Book</h1>
         <form id="contactForm" name="contactForm" method="post" action="index.php">
+          <input name="ppl_id" id="ppl_id" type="hidden" value="" />
           <fieldset>
             <span class="validationMessage">These fields are required to create a new contact.</span>
           </fieldset>
           <fieldset>
             <label class="requiredField" for="firstName">First Name:</label>
-            <input name="firstName" id="firstName" maxlength="30" />
+            <input name="firstName" id="firstName" maxlength="30" type="text" />
             <label class="requiredField" for="lastName">Last Name:</label>
-            <input name="lastName" id="lastName" maxlength="30" />
+            <input name="lastName" id="lastName" maxlength="30" type="text" />
           </fieldset>
           <fieldset>
             <label class="requiredField" for="phone">Phone Number:</label>
-            <input name="phone" id="phone" maxlength="10" />
+            <input name="phone" id="phone" maxlength="10" type="text" />
           </fieldset>
           <fieldset>
             <label class="requiredField" for="addressLine1">Address Line 1:</label>
-            <input name="addressLine1" id="addressLine1" maxlength="32" />
+            <input name="addressLine1" id="addressLine1" maxlength="32" type="text" />
             <label for="addressLine2">Address Line 2:</label>
-            <input name="addressLine2" id="addressLine2" maxlength="32" />
+            <input name="addressLine2" id="addressLine2" maxlength="32" type="text" />
             <label class="requiredField" for="city">City:</label>
-            <input name="city" id="city" maxlength="45" />
+            <input name="city" id="city" maxlength="45" type="text" />
             <label class="requiredField" for="state">State:</label>
             <select id="state" name="state">
+              <option value="">-- Select State --</option>
 <?php
 
 foreach ($states as $stateName => $stateCode) {
@@ -80,12 +83,12 @@ foreach ($states as $stateName => $stateCode) {
 ?>
             </select>
             <label class="requiredField" for="zip">ZIP Code:</label>
-            <input name="zip" id="zip" maxlength="10" />
+            <input name="zip" id="zip" maxlength="10" type="text" />
           </fieldset>
           <fieldset>
-            <input type="button" name="submitButton" id="createButton" value="Create Contact"/>
-            <input type="button" name="submitButton" id="searchButton" value="Search Contacts"/>
-            <input type="button" name="submitButton" id="updateButton" value="Update Contact"/>
+            <input type="submit" name="submitButton" id="createButton" value="Create Contact"/>
+            <input type="submit" name="submitButton" id="searchButton" value="Search Contacts"/>
+            <input type="submit" name="submitButton" id="updateButton" value="Update Contact"/>
           </fieldset>
         </form>
       </div>
@@ -97,8 +100,30 @@ foreach ($states as $stateName => $stateCode) {
               <th>Last Name</th>
               <th>City</th>
               <th>ZIP Code</th>
+              <th></th>
             </tr>
           </thead>
+          <tbody>
+<?php
+
+foreach ($queryResults as $key => $row) {
+  
+?>
+            <tr>
+              <td><?php echo $row['firstName'];  ?></td>
+              <td><?php echo $row['lastName']; ?></td>
+              <td><?php echo $row['city']; ?></td>
+              <td><?php echo $row['zip']; ?></td>
+              <td>
+                <a href="javascript: fillForm(<?php echo $key.",'".$row['firstName']."','".$row['lastName']."','".$row['phone']."','".$row['addressLine1']."','".$row['addressLine2']."','".$row['city']."','".$row['state']."','".$row['zip']."'"; ?>);">Update</a>
+              </td>
+            </tr>
+<?php
+
+}
+
+?>
+          </tbody>
         </table>
       </div>
     </div>
@@ -122,5 +147,18 @@ foreach ($states as $stateName => $stateCode) {
         </div>
       </div>
     </noscript>
+    <script type="text/javascript">
+      function fillForm(ppl_id, firstName, lastName, phoneNumber, addressLine1, addressLine2, city, state, zipCode) {
+        $("#ppl_id").val(ppl_id);
+        $("#firstName").val(firstName);
+        $("#lastName").val(lastName);
+        $("#phone").val(phoneNumber);
+        $("#addressLine1").val(addressLine1);
+        $("#addressLine2").val(addressLine2);
+        $("#city").val(city);
+        $("#state").val(state);
+        $("#zip").val(zipCode);
+      }
+    </script>
   </body>
 </html>

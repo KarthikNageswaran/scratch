@@ -33,10 +33,15 @@ input
   width: 300px;
 }
 
+thead
+{
+  background-color: #0f73ff;
+  color: #fff;
+}
+
 th
 {
-  font-size: 11px;
-  text-align: center;
+  text-align: left;
 }
 
 #noJavascriptCovering
