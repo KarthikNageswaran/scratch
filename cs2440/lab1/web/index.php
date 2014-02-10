@@ -89,9 +89,10 @@ foreach ($states as $stateName => $stateCode) {
             <input name="zip" id="zip" maxlength="10" type="text" />
           </fieldset>
           <fieldset>
-            <input type="submit" name="submitButton" id="createButton" value="Create Contact"/>
-            <input type="submit" name="submitButton" id="searchButton" value="Search Contacts"/>
-            <input type="submit" name="submitButton" id="updateButton" value="Update Contact"/>
+            <input type="submit" name="submitButton" id="createButton" value="Create Contact" onclick="return validateFormForCreation()"/>
+            <input type="submit" name="submitButton" id="searchButton" value="Search Contacts" onclick="return validateFormForSearch()"/>
+            <input type="submit" name="submitButton" id="updateButton" value="Update Contact" onclick="return validateFormForUpdate()" disabled/>
+            <input type="reset" name="resetButton" id="resetButton" value="Clear Form" onclick="javascript: clearForm();"/>
           </fieldset>
         </form>
       </div>
@@ -161,6 +162,57 @@ foreach ($queryResults as $key => $row) {
         $("#city").val(city);
         $("#state").val(state);
         $("#zip").val(zipCode);
+        
+        if ($.trim($("#ppl_id").val()).length != 0) {
+          $("#updateButton").prop("disabled", false);
+          $("#createButton").prop("disabled", true);
+        }
+        else {
+          $("#updateButton").prop("disabled", true);
+          $("#createButton").prop("disabled", false);
+        }
+      }
+      
+      function validateForm() {
+        var formIsValid = true;
+        
+        $(":text").each(function(index) {
+          var val = $(this).val();
+          
+          if ($(this).attr("id") != "addressLine2" && $.trim(val).length == 0) {
+            $(this).attr("class", "invalidField");
+            
+            formIsValid = false;
+          } else {
+            $(this).attr("class", "");
+          }
+        });
+        
+        if ($.trim($("#state").val()).length == 0) {
+          $("#state").attr("class", "invalidField");
+        } else {
+          $(this).attr("class", "");
+        }
+        
+        return formIsValid;
+      }
+
+      function validateFormForCreation() {
+        return validateForm();
+      }
+
+      function validateFormForSearch() {
+        return true;
+      }
+
+      function validateFormForUpdate() {
+        return validateForm();
+      }
+      
+      function clearForm() {
+        $("#ppl_id").val("");
+        $("#updateButton").prop("disabled", true);
+        $("#createButton").prop("disabled", false);
       }
     </script>
   </body>
