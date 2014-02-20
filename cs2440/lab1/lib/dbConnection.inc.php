@@ -18,6 +18,8 @@ function getConnection() {
 
   $connection = new mysqli($dbCredentials['hostName'], $dbCredentials['userName'], $dbCredentials['password'], $dbCredentials['dbName']);
 
+  if (!$connection) die ("<h1>Cannot connect to database!</h1>");
+
   return $connection;
 }
 

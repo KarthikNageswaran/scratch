@@ -51,7 +51,8 @@ global $queryResults;
         <form id="contactForm" name="contactForm" method="post" action="index.php">
           <input name="ppl_id" id="ppl_id" type="hidden" value="" />
           <fieldset>
-            <span class="validationMessage">These fields are required to create a new contact.</span>
+            <div class="validationMessage">These fields are required to create a new contact.</div>
+            <div class="searchInfoMessage">Search using any field - partial values allowed - empty form returns all records.</div>
           </fieldset>
           <fieldset>
             <label class="requiredField" for="firstName">First Name:</label>
@@ -89,9 +90,9 @@ foreach ($states as $stateName => $stateCode) {
             <input name="zip" id="zip" maxlength="10" type="text" />
           </fieldset>
           <fieldset>
-            <input type="submit" name="submitButton" id="createButton" value="Create Contact" onclick="return validateFormForCreation()"/>
-            <input type="submit" name="submitButton" id="searchButton" value="Search Contacts" onclick="return validateFormForSearch()"/>
-            <input type="submit" name="submitButton" id="updateButton" value="Update Contact" onclick="return validateFormForUpdate()" disabled/>
+            <input type="submit" name="submitButton" id="createButton" value="Create Contact" onclick="return formIsValidForCreation()"/>
+            <input type="submit" name="submitButton" id="searchButton" value="Search Contacts" onclick="return formIsValidForSearch()" title="Click Search with no critera to get all records."/>
+            <input type="submit" name="submitButton" id="updateButton" value="Update Contact" onclick="return formIsValidForUpdate()" disabled title="Search for a contact to update."/>
             <input type="reset" name="resetButton" id="resetButton" value="Clear Form" onclick="javascript: clearForm();"/>
           </fieldset>
         </form>
@@ -102,7 +103,7 @@ foreach ($states as $stateName => $stateCode) {
             <tr>
               <th>First Name</th>
               <th>Last Name</th>
-              <th>City</th>
+              <th>State</th>
               <th>ZIP Code</th>
               <th></th>
             </tr>
@@ -116,10 +117,10 @@ foreach ($queryResults as $key => $row) {
             <tr>
               <td><?php echo $row['firstName'];  ?></td>
               <td><?php echo $row['lastName']; ?></td>
-              <td><?php echo $row['city']; ?></td>
+              <td><?php echo $row['state']; ?></td>
               <td><?php echo $row['zip']; ?></td>
-              <td>
-                <a href="javascript: fillForm(<?php echo $key.",'".$row['firstName']."','".$row['lastName']."','".$row['phone']."','".$row['addressLine1']."','".$row['addressLine2']."','".$row['city']."','".$row['state']."','".$row['zip']."'"; ?>);">Update</a>
+              <td class="updateLinkCell">
+                <a href="javascript: fillForm(<?php echo $key.",'".$row['firstName']."','".$row['lastName']."','".$row['phone']."','".$row['addressLine1']."','".$row['addressLine2']."','".$row['city']."','".$row['state']."','".$row['zip']."'"; ?>);">View or Update Record</a>
               </td>
             </tr>
 <?php
@@ -143,7 +144,7 @@ foreach ($queryResults as $key => $row) {
             Please enable JavaScript on your browser.
           </p>
           <p>
-            If you are unsure how to enable JavaScript on your browser please consult your browser vendor's documentation - usually there is a website for your browser, or google "how to turn on JavaSCript in <browser-name>."
+            If you are unsure how to enable JavaScript on your browser please consult your browser vendor's documentation - usually there is a website for your browser, or google "how to turn on JavaScript in &lt;browser-name&gt;."
           </p>
           <p>
             Thank you.
@@ -172,8 +173,8 @@ foreach ($queryResults as $key => $row) {
           $("#createButton").prop("disabled", false);
         }
       }
-      
-      function validateForm() {
+
+      function formIsValid() {
         var formIsValid = true;
         
         $(":text").each(function(index) {
@@ -197,22 +198,25 @@ foreach ($queryResults as $key => $row) {
         return formIsValid;
       }
 
-      function validateFormForCreation() {
-        return validateForm();
+      function formIsValidForCreation() {
+        return formIsValid();
       }
 
-      function validateFormForSearch() {
+      function formIsValidForSearch() {
         return true;
       }
 
-      function validateFormForUpdate() {
-        return validateForm();
+      function formIsValidForUpdate() {
+        return formIsValid();
       }
       
       function clearForm() {
-        $("#ppl_id").val("");
+        fillForm("", "", "", "", "", "", "", "", "");
+
         $("#updateButton").prop("disabled", true);
         $("#createButton").prop("disabled", false);
+    
+        return true;
       }
     </script>
   </body>

@@ -110,12 +110,17 @@ th
 .validationMessage
 {
   font-size: 10pt;
-  color: #800;
+  color: #d00;
+}
+
+.searchInfoMessage
+{
+  font-size: 10pt;
 }
 
 .requiredField
 {
-  color: #800;
+  color: #d00;
 }
 
 .fail,
@@ -149,4 +154,9 @@ th
 .invalidField
 {
   background-color: #f77;
+}
+
+.updateLinkCell
+{
+  text-align: center;
 }
