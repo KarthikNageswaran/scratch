@@ -13,7 +13,7 @@
  */
 static $dbCredentials = array(
   'userName' => 'nathanlane',
-  'password' => 'i78y6zbgfhla',
+  'password' => '000000',
   'hostName' => 'localhost',
   'dbName' => 'nathanlane'
 );
